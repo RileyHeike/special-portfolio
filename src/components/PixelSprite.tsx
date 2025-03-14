@@ -1,24 +1,81 @@
 
 import React, { useState, useEffect } from 'react';
+import { Heart, Star, Zap, Sparkles } from 'lucide-react';
 
 interface PixelSpriteProps {
   className?: string;
+  onClick?: () => void;
 }
 
-const PixelSprite: React.FC<PixelSpriteProps> = ({ className }) => {
-  const [isAnimating, setIsAnimating] = useState(false);
-  
-  // This is a placeholder for your actual pixel sprite
-  // Replace with your own pixel art when ready
-  
+const PixelSprite: React.FC<PixelSpriteProps> = ({ className, onClick }) => {
+  const [animation, setAnimation] = useState('animate-float');
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState('');
+  const [showEmoji, setShowEmoji] = useState(false);
+  const [currentEmoji, setCurrentEmoji] = useState(<Heart size={16} className="text-retro-pixel-red" />);
+
+  // Array of fun messages for speech bubble
+  const messages = [
+    "Hello there!",
+    "Want to see my projects?",
+    "Click around to explore!",
+    "I'm pixel perfect!",
+    "Level up your skills!",
+    "High score achieved!",
+    "Game on!",
+    "Press START to continue...",
+    "Achievement unlocked!",
+    "Power up!"
+  ];
+
+  // Array of emoji components
+  const emojis = [
+    <Heart key="heart" size={16} className="text-retro-pixel-red" />,
+    <Star key="star" size={16} className="text-retro-pixel-yellow" />,
+    <Zap key="zap" size={16} className="text-retro-amber" />,
+    <Sparkles key="sparkles" size={16} className="text-retro-neon-blue" />
+  ];
+
+  // Array of animations
+  const animations = [
+    'animate-pixel-bounce',
+    'animate-spin',
+    'animate-pulse',
+    'animate-ping'
+  ];
+
   const handleClick = () => {
-    setIsAnimating(true);
-    setTimeout(() => setIsAnimating(false), 1000);
+    // Get random message, emoji, and animation
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+    const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+    
+    setMessage(randomMessage);
+    setCurrentEmoji(randomEmoji);
+    setAnimation(randomAnimation);
+    setShowMessage(true);
+    setShowEmoji(true);
+    
+    // Call onClick prop if provided
+    if (onClick) {
+      onClick();
+    }
+    
+    // Reset animation and hide message after delay
+    setTimeout(() => {
+      setAnimation('animate-float');
+      setShowMessage(false);
+    }, 2000);
+    
+    // Show emoji particles that float up and disappear
+    setTimeout(() => {
+      setShowEmoji(false);
+    }, 1500);
   };
   
   return (
     <div 
-      className={`relative cursor-pointer ${isAnimating ? 'animate-pixel-bounce' : 'animate-float'} ${className}`}
+      className={`relative cursor-pointer ${animation} ${className}`}
       onClick={handleClick}
     >
       {/* Placeholder sprite - replace with your own */}
@@ -44,9 +101,18 @@ const PixelSprite: React.FC<PixelSpriteProps> = ({ className }) => {
       </div>
       
       {/* Speech bubble - shows when clicked */}
-      {isAnimating && (
+      {showMessage && (
         <div className="absolute -top-12 left-0 right-0 bg-white text-black p-2 rounded-lg text-xs font-pixel animate-fade-in">
-          Hello there!
+          {message}
+        </div>
+      )}
+      
+      {/* Emoji particles */}
+      {showEmoji && (
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-8 left-2 animate-float opacity-80">{currentEmoji}</div>
+          <div className="absolute -top-6 right-2 animate-float opacity-80 delay-100">{currentEmoji}</div>
+          <div className="absolute -top-4 left-8 animate-float opacity-80 delay-200">{currentEmoji}</div>
         </div>
       )}
     </div>

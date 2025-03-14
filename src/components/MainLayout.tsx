@@ -8,19 +8,22 @@ import {
   Briefcase, 
   FolderGit2, 
   User, 
-  Gamepad2 
+  Gamepad2,
+  Trophy
 } from 'lucide-react';
 
 interface MainLayoutProps {
   activeSection: string;
   setActiveSection: (section: string) => void;
   children: ReactNode;
+  score?: number;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ 
   activeSection, 
   setActiveSection, 
-  children 
+  children,
+  score = 0
 }) => {
   const { toast } = useToast();
   const [isSoundOn, setIsSoundOn] = useState(false);
@@ -50,7 +53,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({
             <Gamepad2 className="text-retro-purple" size={24} />
             <h1 className="text-lg md:text-2xl font-pixel text-retro-purple tracking-wider">RETRO PORTFOLIO</h1>
           </div>
-          <div>
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 bg-retro-terminal-black px-3 py-1 rounded border border-retro-purple">
+              <Trophy size={16} className="text-retro-pixel-yellow" />
+              <span className="font-pixel text-retro-pixel-yellow text-xs">SCORE: {score}</span>
+            </div>
             <Button 
               variant="outline" 
               size="sm" 
@@ -92,6 +99,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({
 
       <footer className="p-4 border-t border-retro-purple bg-retro-dark-purple text-center text-xs font-mono text-retro-purple">
         <p>&copy; 2023 RETRO PORTFOLIO | PRESS START TO INTERACT</p>
+        {score > 0 && (
+          <p className="mt-2 font-pixel text-retro-pixel-yellow">YOUR CURRENT SCORE: {score}</p>
+        )}
       </footer>
 
       <div className="scanline"></div>
