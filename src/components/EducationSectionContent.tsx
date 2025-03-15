@@ -2,14 +2,13 @@
 import React, { useState } from 'react';
 import { GraduationCap, Calendar, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
 import { 
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible';
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 const EducationSectionContent: React.FC = () => {
-  const [openItems, setOpenItems] = useState<Record<number, boolean>>({});
-  
   const education = [
     {
       degree: "Master of Computer Science",
@@ -45,13 +44,6 @@ const EducationSectionContent: React.FC = () => {
     }
   ];
 
-  const toggleItem = (index: number) => {
-    setOpenItems(prev => ({
-      ...prev,
-      [index]: !prev[index]
-    }));
-  };
-
   return (
     <div className="p-4">
       <h2 className="text-xl md:text-3xl font-pixel text-retro-purple mb-6">
@@ -60,10 +52,8 @@ const EducationSectionContent: React.FC = () => {
       
       <div className="space-y-8">
         {education.map((edu, index) => (
-          <Collapsible 
+          <div 
             key={index}
-            open={openItems[index]}
-            onOpenChange={() => toggleItem(index)}
             className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners transition-all duration-300 hover:border-retro-terminal-green"
           >
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
@@ -89,61 +79,54 @@ const EducationSectionContent: React.FC = () => {
             
             <p className="text-retro-terminal-green font-mono mb-4">{edu.description}</p>
             
-            <CollapsibleTrigger className="flex items-center cursor-pointer w-full text-left justify-center">
-              <div className="bg-retro-dark-purple text-retro-terminal-green px-3 py-1 rounded font-mono text-xs flex items-center">
-                {openItems[index] ? (
-                  <>
-                    <span>Show Less</span>
-                    <ChevronUp size={14} className="ml-1" />
-                  </>
-                ) : (
-                  <>
-                    <span>Show More</span>
-                    <ChevronDown size={14} className="ml-1" />
-                  </>
-                )}
-              </div>
-            </CollapsibleTrigger>
-            
-            <CollapsibleContent className="animate-accordion-down space-y-4 pt-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <h4 className="text-retro-pixel-yellow font-pixel text-sm mb-2">ACHIEVEMENTS</h4>
-                  <ul className="list-disc list-inside text-retro-terminal-green font-mono">
-                    {edu.achievements.map((achievement, i) => (
-                      <li key={i} className="mb-1">{achievement}</li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div>
-                  <h4 className="text-retro-pixel-green font-pixel text-sm mb-2">SKILLS ACQUIRED</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {edu.skills.map((skill, i) => (
-                      <span 
-                        key={i} 
-                        className="bg-retro-dark-purple text-retro-terminal-green px-2 py-1 rounded font-mono text-xs"
-                      >
-                        {skill}
-                      </span>
-                    ))}
+            <Accordion type="single" collapsible className="border-0">
+              <AccordionItem value={`item-${index}`} className="border-0">
+                <AccordionTrigger className="py-0 hover:no-underline">
+                  <div className="bg-retro-dark-purple text-retro-terminal-green px-3 py-1 rounded font-mono text-xs flex items-center">
+                    <span>Show Details</span>
                   </div>
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="text-retro-pixel-blue font-pixel text-sm mb-2">KEY COURSES</h4>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-retro-terminal-green font-mono">
-                  {edu.courses.map((course, i) => (
-                    <li key={i} className="flex items-center">
-                      <span className="text-retro-purple mr-2">•</span>
-                      {course}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </CollapsibleContent>
-          </Collapsible>
+                </AccordionTrigger>
+                <AccordionContent className="pt-4 space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <h4 className="text-retro-pixel-yellow font-pixel text-sm mb-2">ACHIEVEMENTS</h4>
+                      <ul className="list-disc list-inside text-retro-terminal-green font-mono">
+                        {edu.achievements.map((achievement, i) => (
+                          <li key={i} className="mb-1">{achievement}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-retro-pixel-green font-pixel text-sm mb-2">SKILLS ACQUIRED</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {edu.skills.map((skill, i) => (
+                          <span 
+                            key={i} 
+                            className="bg-retro-dark-purple text-retro-terminal-green px-2 py-1 rounded font-mono text-xs"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-retro-pixel-blue font-pixel text-sm mb-2">KEY COURSES</h4>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-retro-terminal-green font-mono">
+                      {edu.courses.map((course, i) => (
+                        <li key={i} className="flex items-center">
+                          <span className="text-retro-purple mr-2">•</span>
+                          {course}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
         ))}
       </div>
     </div>
