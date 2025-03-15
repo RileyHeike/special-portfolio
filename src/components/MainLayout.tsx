@@ -2,6 +2,7 @@
 import React, { useState, ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import Coin from '@/components/Coin';
 import { 
   Home, 
   GraduationCap, 
@@ -17,16 +18,21 @@ interface MainLayoutProps {
   setActiveSection: (section: string) => void;
   children: ReactNode;
   score?: number;
+  onCollectCoin?: (id: string, value: number) => void;
+  coins?: Record<string, boolean>;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ 
   activeSection, 
   setActiveSection, 
   children,
-  score = 0
+  score = 0,
+  onCollectCoin,
+  coins = {}
 }) => {
   const { toast } = useToast();
   const [isSoundOn, setIsSoundOn] = useState(false);
+  const [headerClickCount, setHeaderClickCount] = useState(0);
 
   const toggleSound = () => {
     setIsSoundOn(!isSoundOn);
@@ -35,6 +41,21 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       description: isSoundOn ? "Game sound effects disabled" : "Game sound effects enabled",
       duration: 1500,
     });
+  };
+
+  const handleHeaderClick = () => {
+    setHeaderClickCount(prev => prev + 1);
+    
+    // Easter egg: Click header 5 times
+    if (headerClickCount === 4 && onCollectCoin) {
+      onCollectCoin('header-easter-egg', 100);
+      toast({
+        title: "SECRET FOUND!",
+        description: "You found a hidden easter egg! +100 points!",
+        duration: 2000,
+      });
+      setHeaderClickCount(0);
+    }
   };
 
   const navItems = [
@@ -47,7 +68,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="p-4 border-b border-retro-purple bg-retro-dark-purple">
+      <header 
+        className="p-4 border-b border-retro-purple bg-retro-dark-purple"
+        onClick={handleHeaderClick}
+      >
         <div className="container mx-auto flex flex-wrap justify-between items-center">
           <div className="flex items-center space-x-2">
             <Gamepad2 className="text-retro-purple" size={24} />
@@ -97,8 +121,20 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         </div>
       </main>
 
-      <footer className="p-4 border-t border-retro-purple bg-retro-dark-purple text-center text-xs font-mono text-retro-purple">
-        <p>&copy; 2023 RETRO PORTFOLIO | PRESS START TO INTERACT</p>
+      <footer className="p-4 border-t border-retro-purple bg-retro-dark-purple text-center text-xs font-mono text-retro-purple relative">
+        {/* Hidden coin in the footer */}
+        <div className="absolute bottom-3 right-3 opacity-30 hover:opacity-100 transition-opacity duration-300">
+          {onCollectCoin && (
+            <Coin 
+              id="footer-coin" 
+              value={25} 
+              onCollect={onCollectCoin}
+              isCollected={coins['footer-coin'] || false}
+            />
+          )}
+        </div>
+        
+        <p>&copy; 2023 RETRO PORTFOLIO | SEARCH FOR HIDDEN COINS</p>
         {score > 0 && (
           <p className="mt-2 font-pixel text-retro-pixel-yellow">YOUR CURRENT SCORE: {score}</p>
         )}

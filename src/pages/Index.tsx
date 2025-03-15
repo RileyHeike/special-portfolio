@@ -13,6 +13,8 @@ const Index = () => {
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
   const [score, setScore] = useState(0);
+  const [coins, setCoins] = useState<Record<string, boolean>>({});
+  const [secretCode, setSecretCode] = useState('');
   const { toast } = useToast();
 
   const handleLoaderComplete = () => {
@@ -21,7 +23,7 @@ const Index = () => {
     // Show welcome toast
     toast({
       title: "GAME LOADED",
-      description: "Welcome to my retro portfolio! Click around to increase your score!",
+      description: "Welcome to my retro portfolio! Find hidden coins to increase your score!",
       duration: 3000,
     });
   };
@@ -58,6 +60,28 @@ const Index = () => {
       } else {
         konamiIndex = 0;
       }
+
+      // Track keys pressed for secret codes
+      setSecretCode(prev => {
+        const newCode = (prev + e.key).slice(-10);
+        // Secret code "showmecoins" - reveals all coin locations temporarily
+        if (newCode.includes("showmecoins")) {
+          toast({
+            title: "COIN REVEALER!",
+            description: "All coins are now visible for 5 seconds!",
+            duration: 3000,
+          });
+          
+          // Show all coins briefly
+          document.body.classList.add('reveal-coins');
+          setTimeout(() => {
+            document.body.classList.remove('reveal-coins');
+          }, 5000);
+          
+          return '';
+        }
+        return newCode;
+      });
     };
     
     window.addEventListener('keydown', handleKeyDown);
@@ -68,31 +92,37 @@ const Index = () => {
     };
   }, [toast]);
 
-  const incrementScore = () => {
-    setScore(prev => prev + 10);
-    if (score >= 100 && score % 100 === 0) {
-      toast({
-        title: "LEVEL UP!",
-        description: `You reached ${score} points! Keep exploring!`,
-        duration: 2000,
-      });
+  const handleCollectCoin = (coinId: string, value: number = 50) => {
+    if (!coins[coinId]) {
+      setCoins(prev => ({ ...prev, [coinId]: true }));
+      setScore(prev => prev + value);
+      
+      // Check for milestones
+      const newScore = score + value;
+      if (newScore >= 100 && Math.floor(newScore / 100) > Math.floor(score / 100)) {
+        toast({
+          title: "LEVEL UP!",
+          description: `You reached ${Math.floor(newScore / 100) * 100} points! Keep exploring!`,
+          duration: 2000,
+        });
+      }
     }
   };
 
   const renderContent = () => {
     switch (activeSection) {
       case 'home':
-        return <HomeSectionContent onInteraction={incrementScore} />;
+        return <HomeSectionContent onInteraction={() => {}} />;
       case 'education':
         return <EducationSectionContent />;
       case 'experience':
         return <ExperienceSectionContent />;
       case 'projects':
-        return <ProjectsSectionContent />;
+        return <ProjectsSectionContent onCollectCoin={handleCollectCoin} coins={coins} />;
       case 'about':
         return <AboutSectionContent />;
       default:
-        return <HomeSectionContent onInteraction={incrementScore} />;
+        return <HomeSectionContent onInteraction={() => {}} />;
     }
   };
 
@@ -105,6 +135,8 @@ const Index = () => {
           activeSection={activeSection} 
           setActiveSection={setActiveSection}
           score={score}
+          onCollectCoin={handleCollectCoin}
+          coins={coins}
         >
           {renderContent()}
         </MainLayout>
