@@ -13,7 +13,6 @@ const Index = () => {
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
   const [score, setScore] = useState(0);
-  const [coins, setCoins] = useState<Record<string, boolean>>({});
   const { toast } = useToast();
 
   const handleLoaderComplete = () => {
@@ -22,7 +21,7 @@ const Index = () => {
     // Show welcome toast
     toast({
       title: "GAME LOADED",
-      description: "Welcome to my retro portfolio! Find hidden coins to increase your score!",
+      description: "Welcome to my retro portfolio! Click around to increase your score!",
       duration: 3000,
     });
   };
@@ -59,23 +58,6 @@ const Index = () => {
       } else {
         konamiIndex = 0;
       }
-      
-      // Easter egg: type "coins" to reveal all coins
-      if (e.key === 'c' && e.altKey && e.shiftKey) {
-        toast({
-          title: "COIN DETECTOR ACTIVATED!",
-          description: "All coins temporarily revealed! Quick, find them!",
-          duration: 3000,
-        });
-        
-        // Flash all coins
-        document.querySelectorAll('[data-coin]').forEach(coin => {
-          coin.classList.add('opacity-100', 'animate-pulse');
-          setTimeout(() => {
-            coin.classList.remove('opacity-100', 'animate-pulse');
-          }, 5000);
-        });
-      }
     };
     
     window.addEventListener('keydown', handleKeyDown);
@@ -86,8 +68,8 @@ const Index = () => {
     };
   }, [toast]);
 
-  const incrementScore = (amount = 10) => {
-    setScore(prev => prev + amount);
+  const incrementScore = () => {
+    setScore(prev => prev + 10);
     if (score >= 100 && score % 100 === 0) {
       toast({
         title: "LEVEL UP!",
@@ -97,48 +79,18 @@ const Index = () => {
     }
   };
 
-  const collectCoin = (coinId: string, value: number = 50) => {
-    if (!coins[coinId]) {
-      setCoins(prev => ({ ...prev, [coinId]: true }));
-      incrementScore(value);
-      
-      // Check if the user has found all coins
-      const totalCoins = 5; // Update this number if you add more coins
-      const foundCoins = Object.values(coins).filter(Boolean).length + 1;
-      
-      if (foundCoins === totalCoins) {
-        toast({
-          title: "ALL COINS COLLECTED!",
-          description: "You found all hidden coins! +500 bonus points!",
-          duration: 4000,
-        });
-        incrementScore(500); // Bonus for finding all coins
-      }
-    }
-  };
-
-  // Special Easter Egg: Double click on the header
-  const triggerHeaderEasterEgg = () => {
-    toast({
-      title: "SECRET FOUND!",
-      description: "You discovered a hidden secret! +200 points!",
-      duration: 3000,
-    });
-    incrementScore(200);
-  };
-
   const renderContent = () => {
     switch (activeSection) {
       case 'home':
         return <HomeSectionContent onInteraction={incrementScore} />;
       case 'education':
-        return <EducationSectionContent onCollectCoin={collectCoin} coins={coins} />;
+        return <EducationSectionContent />;
       case 'experience':
-        return <ExperienceSectionContent onCollectCoin={collectCoin} coins={coins} />;
+        return <ExperienceSectionContent />;
       case 'projects':
-        return <ProjectsSectionContent onCollectCoin={collectCoin} coins={coins} />;
+        return <ProjectsSectionContent />;
       case 'about':
-        return <AboutSectionContent onCollectCoin={collectCoin} coins={coins} />;
+        return <AboutSectionContent />;
       default:
         return <HomeSectionContent onInteraction={incrementScore} />;
     }
@@ -153,7 +105,6 @@ const Index = () => {
           activeSection={activeSection} 
           setActiveSection={setActiveSection}
           score={score}
-          onHeaderClick={triggerHeaderEasterEgg}
         >
           {renderContent()}
         </MainLayout>

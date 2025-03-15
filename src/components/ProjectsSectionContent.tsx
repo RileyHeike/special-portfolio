@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState } from 'react';
 import { FolderGit2, Globe, Github, ExternalLink, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import Coin from './Coin';
-
-interface ProjectsSectionContentProps {
-  onCollectCoin?: (id: string, value: number) => void;
-  coins?: Record<string, boolean>;
-}
 
 interface Project {
   id: number;
@@ -17,26 +12,10 @@ interface Project {
   githubUrl?: string;
   liveUrl?: string;
   features: string[];
-  hasCoin?: boolean;
-  coinValue?: number;
 }
 
-const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({ onCollectCoin, coins = {} }) => {
+const ProjectsSectionContent: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  
-  useEffect(() => {
-    const handleCoinCollected = (e: CustomEvent) => {
-      if (onCollectCoin) {
-        onCollectCoin(e.detail.id, e.detail.value);
-      }
-    };
-
-    document.addEventListener('coin-collected', handleCoinCollected as EventListener);
-    
-    return () => {
-      document.removeEventListener('coin-collected', handleCoinCollected as EventListener);
-    };
-  }, [onCollectCoin]);
   
   const projects: Project[] = [
     {
@@ -53,9 +32,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({ onColle
         "Shopping cart",
         "Payment processing",
         "Order history"
-      ],
-      hasCoin: true,
-      coinValue: 75
+      ]
     },
     {
       id: 2,
@@ -199,6 +176,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({ onColle
         ))}
       </div>
       
+      {/* Project Details Modal */}
       {selectedProject && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div 
@@ -209,25 +187,6 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({ onColle
           <div className="bg-retro-dark-purple border-2 border-retro-purple rounded-lg pixel-corners p-6 max-w-2xl w-full z-10">
             <div className="flex justify-between items-start mb-4">
               <h3 className="text-retro-terminal-green font-pixel text-xl">{selectedProject.title}</h3>
-              
-              {selectedProject.hasCoin && !coins[`project-${selectedProject.id}`] && (
-                <div 
-                  className="absolute top-6 right-16 opacity-0 hover:opacity-100 transition-opacity" 
-                  data-coin={`project-${selectedProject.id}`}
-                >
-                  <Coin 
-                    onCollect={() => {
-                      if (onCollectCoin) {
-                        onCollectCoin(`project-${selectedProject.id}`, selectedProject.coinValue || 50);
-                      }
-                    }}
-                    value={selectedProject.coinValue}
-                    position="absolute"
-                    tooltip="You found a hidden coin!"
-                  />
-                </div>
-              )}
-              
               <Button 
                 variant="ghost" 
                 size="sm" 
