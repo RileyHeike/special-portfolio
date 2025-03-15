@@ -1,8 +1,14 @@
-
 import React, { useState } from 'react';
 import { FolderGit2, Globe, Github, ExternalLink, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Coin from '@/components/Coin';
+import { 
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogClose
+} from '@/components/ui/dialog';
 
 interface Project {
   id: number;
@@ -91,7 +97,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
       ]
     }
   ];
-
+  
   const openProjectDetails = (project: Project) => {
     setSelectedProject(project);
   };
@@ -197,15 +203,10 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
         ))}
       </div>
       
-      {/* Project Details Modal */}
-      {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div 
-            className="absolute inset-0 bg-black bg-opacity-80"
-            onClick={closeProjectDetails}
-          ></div>
-          
-          <div className="bg-retro-dark-purple border-2 border-retro-purple rounded-lg pixel-corners p-6 max-w-2xl w-full z-10 relative">
+      {/* Project Details Modal - Replace with Dialog component */}
+      <Dialog open={!!selectedProject} onOpenChange={(open) => !open && closeProjectDetails()}>
+        {selectedProject && (
+          <DialogContent className="bg-retro-dark-purple border-2 border-retro-purple rounded-lg pixel-corners p-6 max-w-2xl w-full relative">
             {/* Hidden coin in modal details */}
             {selectedProject.id === 3 && onCollectCoin && (
               <div className="absolute top-2 right-12 opacity-0 hover:opacity-100 coin-hidden transition-opacity duration-300">
@@ -218,17 +219,12 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
               </div>
             )}
             
-            <div className="flex justify-between items-start mb-4">
-              <h3 className="text-retro-terminal-green font-pixel text-xl">{selectedProject.title}</h3>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="text-retro-terminal-green hover:text-retro-purple"
-                onClick={closeProjectDetails}
-              >
+            <DialogHeader>
+              <DialogTitle className="text-retro-terminal-green font-pixel text-xl">{selectedProject.title}</DialogTitle>
+              <DialogClose className="absolute right-4 top-4 text-retro-terminal-green hover:text-retro-purple">
                 X
-              </Button>
-            </div>
+              </DialogClose>
+            </DialogHeader>
             
             <div className="h-48 bg-retro-terminal-black mb-4 flex items-center justify-center overflow-hidden rounded-lg">
               <FolderGit2 size={80} className="text-retro-purple opacity-50" />
@@ -286,9 +282,9 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
                 </Button>
               )}
             </div>
-          </div>
-        </div>
-      )}
+          </DialogContent>
+        )}
+      </Dialog>
     </div>
   );
 };
