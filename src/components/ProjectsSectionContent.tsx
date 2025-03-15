@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { FolderGit2, Globe, Github, ExternalLink, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -203,7 +204,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
         ))}
       </div>
       
-      {/* Project Details Modal - Replace with Dialog component */}
+      {/* Project Details Modal */}
       <Dialog open={!!selectedProject} onOpenChange={(open) => !open && closeProjectDetails()}>
         {selectedProject && (
           <DialogContent className="bg-retro-dark-purple border-2 border-retro-purple rounded-lg pixel-corners p-6 max-w-2xl w-full relative">
@@ -221,10 +222,10 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
             
             <DialogHeader>
               <DialogTitle className="text-retro-terminal-green font-pixel text-xl">{selectedProject.title}</DialogTitle>
-              <DialogClose className="absolute right-4 top-4 text-retro-terminal-green hover:text-retro-purple">
-                X
-              </DialogClose>
             </DialogHeader>
+            <DialogClose className="absolute right-4 top-4 text-retro-terminal-green hover:text-retro-purple">
+              X
+            </DialogClose>
             
             <div className="h-48 bg-retro-terminal-black mb-4 flex items-center justify-center overflow-hidden rounded-lg">
               <FolderGit2 size={80} className="text-retro-purple opacity-50" />

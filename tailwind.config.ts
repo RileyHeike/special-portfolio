@@ -62,7 +62,6 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Retro theme colors
 				retro: {
 					'terminal-green': '#33ff33',
 					'terminal-black': '#121212',

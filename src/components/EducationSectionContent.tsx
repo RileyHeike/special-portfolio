@@ -68,13 +68,7 @@ const EducationSectionContent: React.FC = () => {
           >
             <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
               <div>
-                <CollapsibleTrigger className="flex items-center cursor-pointer w-full text-left">
-                  <h3 className="text-retro-terminal-green font-pixel text-lg mr-2">{edu.degree}</h3>
-                  {openItems[index] ? 
-                    <ChevronUp size={16} className="text-retro-terminal-green" /> : 
-                    <ChevronDown size={16} className="text-retro-terminal-green" />
-                  }
-                </CollapsibleTrigger>
+                <h3 className="text-retro-terminal-green font-pixel text-lg">{edu.degree}</h3>
                 <div className="flex items-center mt-2 text-retro-purple">
                   <GraduationCap size={16} className="mr-2" />
                   <span className="font-mono">{edu.institution}</span>
@@ -95,7 +89,23 @@ const EducationSectionContent: React.FC = () => {
             
             <p className="text-retro-terminal-green font-mono mb-4">{edu.description}</p>
             
-            <CollapsibleContent className="animate-accordion-down space-y-4">
+            <CollapsibleTrigger className="flex items-center cursor-pointer w-full text-left justify-center">
+              <div className="bg-retro-dark-purple text-retro-terminal-green px-3 py-1 rounded font-mono text-xs flex items-center">
+                {openItems[index] ? (
+                  <>
+                    <span>Show Less</span>
+                    <ChevronUp size={14} className="ml-1" />
+                  </>
+                ) : (
+                  <>
+                    <span>Show More</span>
+                    <ChevronDown size={14} className="ml-1" />
+                  </>
+                )}
+              </div>
+            </CollapsibleTrigger>
+            
+            <CollapsibleContent className="animate-accordion-down space-y-4 pt-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <h4 className="text-retro-pixel-yellow font-pixel text-sm mb-2">ACHIEVEMENTS</h4>
