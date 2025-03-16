@@ -95,14 +95,6 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
     setSelectedClassIndex(prev => (prev < characterClasses.length - 1 ? prev + 1 : 0));
   };
 
-  // Handle health change
-  const handleHealthChange = (amount: number) => {
-    setHealthPoints(prev => Math.max(0, Math.min(prev + amount, 10)));
-  };
-
-  // Get the currently selected class
-  const selectedClass = characterClasses[selectedClassIndex];
-
   // Render hearts for health
   const renderHearts = () => {
     const hearts = [];
@@ -117,6 +109,9 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
     }
     return hearts;
   };
+
+  // Get the currently selected class
+  const selectedClass = characterClasses[selectedClassIndex];
 
   return (
     <div className="flex flex-col h-full">
@@ -179,20 +174,6 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
               <div className="flex flex-wrap gap-1 justify-center my-2">
                 {renderHearts()}
               </div>
-              <div className="flex justify-between mt-2">
-                <button 
-                  onClick={() => handleHealthChange(-1)}
-                  className="text-xs px-2 py-1 bg-retro-dark-purple border border-retro-purple text-retro-terminal-green hover:bg-retro-purple hover:text-black transition-colors duration-200 rounded"
-                >
-                  -1 HP
-                </button>
-                <button 
-                  onClick={() => handleHealthChange(1)}
-                  className="text-xs px-2 py-1 bg-retro-dark-purple border border-retro-purple text-retro-terminal-green hover:bg-retro-purple hover:text-black transition-colors duration-200 rounded"
-                >
-                  +1 HP
-                </button>
-              </div>
             </div>
             
             {/* Class selection */}
@@ -222,7 +203,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
             
             <PixelSprite className="my-4" onClick={handleSpriteClick} />
             
-            {/* Stats based on selected class */}
+            {/* Stats based on selected class - Modified to fix text overlapping */}
             <div className="w-full px-4 mb-4">
               <h4 className="text-retro-terminal-green font-pixel text-sm mb-2">CLASS STATS</h4>
               <div className="space-y-2 w-full">
@@ -231,11 +212,13 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
                     <HoverCardTrigger asChild>
                       <div className="flex items-center group">
                         <span className="text-retro-terminal-green font-pixel text-xs w-24 capitalize">{stat}</span>
-                        <Progress 
-                          value={value} 
-                          className="h-2 flex-grow bg-retro-dark-purple"
-                        />
-                        <span className="text-retro-terminal-green font-pixel text-xs ml-2 w-8">{value}</span>
+                        <div className="flex-grow flex">
+                          <Progress 
+                            value={value} 
+                            className="h-2 w-24 md:w-32 bg-retro-dark-purple"
+                          />
+                          <span className="text-retro-terminal-green font-pixel text-xs ml-2">{value}</span>
+                        </div>
                       </div>
                     </HoverCardTrigger>
                     <HoverCardContent className="w-64 bg-retro-terminal-black border border-retro-purple text-retro-terminal-green p-4">

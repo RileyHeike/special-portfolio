@@ -135,9 +135,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         </div>
         
         <p>&copy; 2023 RETRO PORTFOLIO | SEARCH FOR HIDDEN COINS</p>
-        {score > 0 && (
-          <p className="mt-2 font-pixel text-retro-pixel-yellow">YOUR CURRENT SCORE: {score}</p>
-        )}
       </footer>
 
       <div className="scanline"></div>
