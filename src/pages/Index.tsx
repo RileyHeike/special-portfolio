@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import TerminalLoader from '@/components/TerminalLoader';
 import MainLayout from '@/components/MainLayout';
@@ -112,7 +111,7 @@ const Index = () => {
   const renderContent = () => {
     switch (activeSection) {
       case 'home':
-        return <HomeSectionContent onInteraction={() => {}} />;
+        return <HomeSectionContent onInteraction={() => {}} score={score} />;
       case 'education':
         return <EducationSectionContent />;
       case 'experience':
@@ -122,7 +121,7 @@ const Index = () => {
       case 'about':
         return <AboutSectionContent />;
       default:
-        return <HomeSectionContent onInteraction={() => {}} />;
+        return <HomeSectionContent onInteraction={() => {}} score={score} />;
     }
   };
 

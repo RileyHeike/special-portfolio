@@ -2,29 +2,56 @@
 import React, { useState, useEffect } from 'react';
 import PixelSprite from './PixelSprite';
 import { Progress } from './ui/progress';
-import { Trophy, Zap, Swords, Gamepad, Heart, Trophy as TrophyIcon } from 'lucide-react';
+import { Trophy, Zap, Swords, Gamepad, Heart, Trophy as TrophyIcon, ArrowLeft, ArrowRight } from 'lucide-react';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/hover-card';
 
 interface HomeSectionContentProps {
   onInteraction?: () => void;
+  score?: number;
 }
 
-const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction }) => {
+// Character classes with preset stats
+const characterClasses = [
+  {
+    name: "Warrior",
+    stats: { strength: 90, agility: 60, intellect: 40, charisma: 50, luck: 70 },
+    description: "A mighty warrior with exceptional strength and combat skills."
+  },
+  {
+    name: "Mage",
+    stats: { strength: 30, agility: 50, intellect: 95, charisma: 65, luck: 60 },
+    description: "A powerful spellcaster with superior intellect and magical abilities."
+  },
+  {
+    name: "Rogue",
+    stats: { strength: 55, agility: 90, intellect: 60, charisma: 50, luck: 80 },
+    description: "A stealthy rogue with exceptional agility and luck."
+  },
+  {
+    name: "Bard",
+    stats: { strength: 40, agility: 60, intellect: 70, charisma: 95, luck: 65 },
+    description: "A charismatic performer with exceptional people skills."
+  }
+];
+
+// Achievement definitions with score thresholds
+const achievementDefinitions = [
+  { id: 1, name: "First Visitor", description: "Visit the portfolio for the first time", scoreThreshold: 0 },
+  { id: 2, name: "Explorer", description: "Find your first hidden coin", scoreThreshold: 25 },
+  { id: 3, name: "Treasure Hunter", description: "Collect 100 points", scoreThreshold: 100 },
+  { id: 4, name: "Code Master", description: "Collect 250 points", scoreThreshold: 250 },
+  { id: 5, name: "Portfolio Champion", description: "Collect 500 points", scoreThreshold: 500 }
+];
+
+const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, score = 0 }) => {
   const [typedText, setTypedText] = useState("");
   const [hasInteracted, setHasInteracted] = useState(false);
-  const [gameStats, setGameStats] = useState({
-    strength: 65,
-    agility: 75,
-    intellect: 85,
-    charisma: 70,
-    luck: 50
-  });
-  const [achievements, setAchievements] = useState([
-    { id: 1, name: "First Visitor", unlocked: true },
-    { id: 2, name: "Explorer", unlocked: false },
-    { id: 3, name: "Code Master", unlocked: false }
-  ]);
-  const [healthPoints, setHealthPoints] = useState(100);
+  const [healthPoints, setHealthPoints] = useState(10); // Max 10 hearts
+  const [selectedClassIndex, setSelectedClassIndex] = useState(0);
+  const [achievements, setAchievements] = useState(achievementDefinitions.map(a => ({
+    ...a,
+    unlocked: a.scoreThreshold <= score
+  })));
   const fullText = "WELCOME TO MY RETRO PORTFOLIO GAME! EXPLORE THE DIFFERENT SECTIONS TO LEARN MORE ABOUT ME AND MY WORK. CLICK ON THE SPRITE TO INTERACT.";
   
   useEffect(() => {
@@ -41,6 +68,14 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction }
     return () => clearInterval(typingInterval);
   }, []);
 
+  // Update achievements based on score
+  useEffect(() => {
+    setAchievements(achievementDefinitions.map(a => ({
+      ...a,
+      unlocked: a.scoreThreshold <= score
+    })));
+  }, [score]);
+
   // Handle click interactions
   const handleSpriteClick = () => {
     if (onInteraction && !hasInteracted) {
@@ -51,28 +86,36 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction }
     }
   };
 
-  // Handle stat boost
-  const handleStatBoost = (stat: keyof typeof gameStats) => {
-    if (gameStats[stat] < 100) {
-      setGameStats(prev => ({
-        ...prev,
-        [stat]: Math.min(prev[stat] + 5, 100)
-      }));
-    }
+  // Handle class selection
+  const handlePreviousClass = () => {
+    setSelectedClassIndex(prev => (prev > 0 ? prev - 1 : characterClasses.length - 1));
   };
 
-  // Handle achievement unlock
-  const unlockAchievement = (id: number) => {
-    setAchievements(prev => 
-      prev.map(achievement => 
-        achievement.id === id ? { ...achievement, unlocked: true } : achievement
-      )
-    );
+  const handleNextClass = () => {
+    setSelectedClassIndex(prev => (prev < characterClasses.length - 1 ? prev + 1 : 0));
   };
 
   // Handle health change
   const handleHealthChange = (amount: number) => {
-    setHealthPoints(prev => Math.max(0, Math.min(prev + amount, 100)));
+    setHealthPoints(prev => Math.max(0, Math.min(prev + amount, 10)));
+  };
+
+  // Get the currently selected class
+  const selectedClass = characterClasses[selectedClassIndex];
+
+  // Render hearts for health
+  const renderHearts = () => {
+    const hearts = [];
+    for (let i = 0; i < 10; i++) {
+      hearts.push(
+        <Heart
+          key={i}
+          size={16}
+          className={i < healthPoints ? 'text-red-500 fill-red-500' : 'text-gray-400'}
+        />
+      );
+    }
+    return hearts;
   };
 
   return (
@@ -106,7 +149,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction }
             <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners hover:border-retro-neon-blue transition-colors duration-300 cursor-pointer" onClick={onInteraction}>
               <h3 className="text-retro-neon-blue font-pixel text-sm mb-2">EXP POINTS</h3>
               <div className="flex justify-center items-center">
-                <span className="text-retro-neon-blue font-pixel text-lg">9,350</span>
+                <span className="text-retro-neon-blue font-pixel text-lg">{score}</span>
               </div>
             </div>
           </div>
@@ -114,7 +157,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction }
           <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners hover:border-retro-pixel-green transition-colors duration-300 cursor-pointer" onClick={onInteraction}>
             <h3 className="text-retro-pixel-green font-pixel text-sm mb-2">QUICK STATS</h3>
             <div className="grid grid-cols-2 gap-y-2 text-xs text-retro-terminal-green">
-              <div>CLASS: <span className="text-retro-purple">Developer</span></div>
+              <div>CLASS: <span className="text-retro-purple">{selectedClass.name}</span></div>
               <div>LEVEL: <span className="text-retro-purple">Senior</span></div>
               <div>SPECIALTY: <span className="text-retro-purple">Frontend</span></div>
               <div>ALIGNMENT: <span className="text-retro-purple">Chaotic Good</span></div>
@@ -127,80 +170,95 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction }
           <div className="bg-retro-terminal-black p-6 border-2 border-retro-purple rounded-lg pixel-corners w-full h-full flex flex-col items-center justify-between hover:border-retro-pixel-yellow transition-colors duration-300">
             <h3 className="text-retro-pixel-yellow font-pixel text-lg">YOUR CHARACTER</h3>
             
-            {/* Health bar */}
+            {/* Health as hearts */}
             <div className="w-full px-4 mb-4">
               <div className="flex justify-between items-center mb-1">
                 <span className="text-retro-terminal-green font-pixel text-xs">HP</span>
-                <span className="text-retro-terminal-green font-pixel text-xs">{healthPoints}/100</span>
+                <span className="text-retro-terminal-green font-pixel text-xs">{healthPoints}/10</span>
               </div>
-              <div className="w-full h-3 bg-retro-dark-purple rounded-sm overflow-hidden">
-                <div 
-                  className="h-full transition-all duration-300 ease-in-out" 
-                  style={{ 
-                    width: `${healthPoints}%`,
-                    backgroundColor: healthPoints > 50 ? '#50fa7b' : healthPoints > 25 ? '#ffb86c' : '#ff5555'
-                  }}
-                ></div>
+              <div className="flex flex-wrap gap-1 justify-center my-2">
+                {renderHearts()}
               </div>
               <div className="flex justify-between mt-2">
                 <button 
-                  onClick={() => handleHealthChange(-10)}
+                  onClick={() => handleHealthChange(-1)}
                   className="text-xs px-2 py-1 bg-retro-dark-purple border border-retro-purple text-retro-terminal-green hover:bg-retro-purple hover:text-black transition-colors duration-200 rounded"
                 >
-                  -10 HP
+                  -1 HP
                 </button>
                 <button 
-                  onClick={() => handleHealthChange(10)}
+                  onClick={() => handleHealthChange(1)}
                   className="text-xs px-2 py-1 bg-retro-dark-purple border border-retro-purple text-retro-terminal-green hover:bg-retro-purple hover:text-black transition-colors duration-200 rounded"
                 >
-                  +10 HP
+                  +1 HP
+                </button>
+              </div>
+            </div>
+            
+            {/* Class selection */}
+            <div className="w-full px-4 mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="text-retro-terminal-green font-pixel text-sm">CHARACTER CLASS</h4>
+                <div className="text-retro-pixel-yellow font-pixel">{selectedClass.name}</div>
+              </div>
+              <div className="flex items-center justify-between">
+                <button 
+                  onClick={handlePreviousClass} 
+                  className="p-2 rounded-full border-2 border-retro-purple bg-retro-dark-purple hover:bg-retro-purple/50 transition-colors"
+                >
+                  <ArrowLeft size={16} className="text-retro-terminal-green" />
+                </button>
+                <div className="text-xs text-retro-terminal-green text-center px-4">
+                  {selectedClass.description}
+                </div>
+                <button 
+                  onClick={handleNextClass} 
+                  className="p-2 rounded-full border-2 border-retro-purple bg-retro-dark-purple hover:bg-retro-purple/50 transition-colors"
+                >
+                  <ArrowRight size={16} className="text-retro-terminal-green" />
                 </button>
               </div>
             </div>
             
             <PixelSprite className="my-4" onClick={handleSpriteClick} />
             
-            {/* Stat boosters */}
+            {/* Stats based on selected class */}
             <div className="w-full px-4 mb-4">
-              <h4 className="text-retro-terminal-green font-pixel text-sm mb-2">STATS (CLICK TO BOOST)</h4>
+              <h4 className="text-retro-terminal-green font-pixel text-sm mb-2">CLASS STATS</h4>
               <div className="space-y-2 w-full">
-                {Object.entries(gameStats).map(([stat, value]) => (
+                {Object.entries(selectedClass.stats).map(([stat, value]) => (
                   <HoverCard key={stat}>
                     <HoverCardTrigger asChild>
-                      <div 
-                        className="cursor-pointer group flex items-center" 
-                        onClick={() => handleStatBoost(stat as keyof typeof gameStats)}
-                      >
+                      <div className="flex items-center group">
                         <span className="text-retro-terminal-green font-pixel text-xs w-24 capitalize">{stat}</span>
                         <Progress 
                           value={value} 
-                          className="h-2 flex-grow bg-retro-dark-purple group-hover:bg-retro-dark-purple/70"
+                          className="h-2 flex-grow bg-retro-dark-purple"
                         />
                         <span className="text-retro-terminal-green font-pixel text-xs ml-2 w-8">{value}</span>
                       </div>
                     </HoverCardTrigger>
                     <HoverCardContent className="w-64 bg-retro-terminal-black border border-retro-purple text-retro-terminal-green p-4">
-                      <p className="text-xs">Click to boost your {stat} stat by 5 points!</p>
+                      <p className="text-xs">The {selectedClass.name} class has {value}% {stat}.</p>
                     </HoverCardContent>
                   </HoverCard>
                 ))}
               </div>
             </div>
             
-            {/* Mini achievements section */}
+            {/* Achievements based on score */}
             <div className="w-full px-4">
               <h4 className="text-retro-terminal-green font-pixel text-sm mb-2">ACHIEVEMENTS</h4>
               <div className="flex justify-around">
-                {achievements.map((achievement) => (
+                {achievements.slice(0, 5).map((achievement) => (
                   <HoverCard key={achievement.id}>
                     <HoverCardTrigger asChild>
                       <div 
-                        className={`cursor-pointer p-2 rounded-full border-2 
+                        className={`p-2 rounded-full border-2 
                           ${achievement.unlocked 
                             ? 'border-retro-pixel-yellow bg-retro-dark-purple' 
                             : 'border-retro-purple/30 bg-retro-dark-purple/30'
                           }`}
-                        onClick={() => !achievement.unlocked && unlockAchievement(achievement.id)}
                       >
                         <TrophyIcon 
                           size={20} 
@@ -210,10 +268,11 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction }
                     </HoverCardTrigger>
                     <HoverCardContent className="w-64 bg-retro-terminal-black border border-retro-purple text-retro-terminal-green p-4">
                       <p className="text-xs font-pixel mb-1">{achievement.name}</p>
+                      <p className="text-xs mb-2">{achievement.description}</p>
                       <p className="text-xs">
                         {achievement.unlocked 
                           ? 'Achievement unlocked!' 
-                          : 'Click to unlock this achievement!'}
+                          : `Unlock at ${achievement.scoreThreshold} points (current: ${score})`}
                       </p>
                     </HoverCardContent>
                   </HoverCard>
