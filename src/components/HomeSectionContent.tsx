@@ -42,7 +42,8 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction }
           <span className="text-retro-terminal-green">&gt;</span> PLAYER ONE READY
         </h2>
         
-        <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners">
+        {/* Fixed height for the welcome message box based on full text length */}
+        <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners h-32">
           <p className="font-mono text-retro-terminal-green">
             {typedText}
             <span className="animate-blink inline-block h-4 w-2 ml-1 bg-retro-terminal-green"></span>
@@ -77,7 +78,8 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction }
       </div>
       
       <div className="w-full md:w-1/2 flex flex-col items-center justify-center">
-        <div className="bg-retro-terminal-black p-6 border-2 border-retro-purple rounded-lg pixel-corners w-full h-full flex flex-col items-center justify-center hover:border-retro-pixel-yellow transition-colors duration-300">
+        {/* Adjusted height to match the total height of the left column content */}
+        <div className="bg-retro-terminal-black p-6 border-2 border-retro-purple rounded-lg pixel-corners w-full h-full min-h-[400px] flex flex-col items-center justify-center hover:border-retro-pixel-yellow transition-colors duration-300">
           <h3 className="text-retro-pixel-yellow font-pixel text-lg mb-8">YOUR CHARACTER</h3>
           <PixelSprite className="mb-8" onClick={handleSpriteClick} />
           <p className="text-retro-terminal-green font-mono text-center text-sm">
