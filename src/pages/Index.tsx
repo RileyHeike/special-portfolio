@@ -32,7 +32,7 @@ const Index = () => {
     document.body.classList.add('crt');
     
     // Easter egg: Konami code detector
-    let konamiCode = [
+    const konamiCode = [
       'ArrowUp', 'ArrowUp', 
       'ArrowDown', 'ArrowDown', 
       'ArrowLeft', 'ArrowRight', 
@@ -47,10 +47,10 @@ const Index = () => {
         konamiIndex++;
         if (konamiIndex === konamiCode.length) {
           // Konami code completed!
-          setScore(prev => prev + 1000);
+          setScore(prev => prev + 300);
           toast({
-            title: "CHEAT CODE ACTIVATED!",
-            description: "You found the Konami code! +1000 points!",
+            title: "SECRET CODE!",
+            description: "You found the Konami code! +300 points!",
             variant: "default",
             duration: 3000,
           });
