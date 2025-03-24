@@ -119,7 +119,7 @@ const Index = () => {
       case 'projects':
         return <ProjectsSectionContent onCollectCoin={handleCollectCoin} coins={coins} />;
       case 'about':
-        return <AboutSectionContent onCollectCoin={handleCollectCoin} coins={coins} />;
+        return <AboutSectionContent />;
       default:
         return <HomeSectionContent onInteraction={() => {}} score={score} />;
     }

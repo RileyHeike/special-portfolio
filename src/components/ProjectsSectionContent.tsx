@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
+  DialogClose
 } from '@/components/ui/dialog';
 
 interface Project {
@@ -205,17 +206,6 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
       <Dialog open={!!selectedProject} onOpenChange={(open) => !open && closeProjectDetails()}>
         {selectedProject && (
           <DialogContent className="bg-retro-dark-purple border-2 border-retro-purple rounded-lg pixel-corners p-6 max-w-2xl w-full relative fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            {selectedProject.id === 1 && onCollectCoin && (
-              <div className="absolute top-4 left-8 opacity-0 hover:opacity-100 coin-hidden transition-opacity duration-300">
-                <Coin 
-                  id={`project-modal-${selectedProject.id}-coin`} 
-                  value={100} 
-                  onCollect={onCollectCoin}
-                  isCollected={coins[`project-modal-${selectedProject.id}-coin`] || false}
-                />
-              </div>
-            )}
-            
             {selectedProject.id === 3 && onCollectCoin && (
               <div className="absolute top-2 right-12 opacity-0 hover:opacity-100 coin-hidden transition-opacity duration-300">
                 <Coin 
@@ -231,6 +221,9 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
               <DialogTitle className="text-retro-terminal-green font-pixel text-xl">{selectedProject.title}</DialogTitle>
               <DialogDescription className="sr-only">Project details for {selectedProject.title}</DialogDescription>
             </DialogHeader>
+            <DialogClose className="absolute right-4 top-4 text-retro-terminal-green hover:text-retro-purple">
+              X
+            </DialogClose>
             
             <div className="h-48 bg-retro-terminal-black mb-4 flex items-center justify-center overflow-hidden rounded-lg">
               <FolderGit2 size={80} className="text-retro-purple opacity-50" />
