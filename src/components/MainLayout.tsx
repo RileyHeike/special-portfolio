@@ -115,8 +115,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         </div>
       </nav>
 
-      <main className="flex-grow container mx-auto p-4">
-        <div className="bg-retro-dark-purple border-2 border-retro-purple p-4 rounded-lg pixel-corners min-h-[70vh]">
+      <main className="flex-grow container mx-auto p-4 overflow-hidden">
+        <div className="bg-retro-dark-purple border-2 border-retro-purple p-4 rounded-lg pixel-corners min-h-[70vh] overflow-hidden">
           {children}
         </div>
       </main>
