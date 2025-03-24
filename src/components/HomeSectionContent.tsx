@@ -203,7 +203,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
             
             <PixelSprite className="my-4" onClick={handleSpriteClick} />
             
-            {/* Stats based on selected class - Modified to fix text overlapping */}
+            {/* Stats based on selected class - Improved to prevent text overlap and span container width */}
             <div className="w-full px-4 mb-4">
               <h4 className="text-retro-terminal-green font-pixel text-sm mb-2">CLASS STATS</h4>
               <div className="space-y-2 w-full">
@@ -211,13 +211,13 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
                   <HoverCard key={stat}>
                     <HoverCardTrigger asChild>
                       <div className="flex items-center group">
-                        <span className="text-retro-terminal-green font-pixel text-xs w-24 capitalize">{stat}</span>
-                        <div className="flex-grow flex">
+                        <span className="text-retro-terminal-green font-pixel text-xs w-20 capitalize">{stat}</span>
+                        <div className="flex-grow flex items-center">
                           <Progress 
                             value={value} 
-                            className="h-2 w-24 md:w-32 bg-retro-dark-purple"
+                            className="h-2 flex-1 bg-retro-dark-purple"
                           />
-                          <span className="text-retro-terminal-green font-pixel text-xs ml-2">{value}</span>
+                          <span className="text-retro-terminal-green font-pixel text-xs ml-2 min-w-8 text-right">{value}</span>
                         </div>
                       </div>
                     </HoverCardTrigger>
