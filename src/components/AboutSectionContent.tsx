@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PixelSprite from './PixelSprite';
 import { Heart, Star, Coffee, Music, Gamepad, Book } from 'lucide-react';
@@ -101,14 +100,10 @@ const AboutSectionContent: React.FC = () => {
         </div>
         
         <div className="md:col-span-1">
-          <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners mb-6 flex flex-col items-center">
-            <h3 className="text-retro-pixel-red font-pixel text-lg mb-4">AVATAR</h3>
+          <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners mb-6 flex flex-col items-center w-full mx-auto">
             <div className="p-4 bg-retro-dark-purple rounded-lg mb-4 w-full flex justify-center">
-              <PixelSprite />
+              <img src="/about-profile-pic.jpeg" alt="Profile Picture" className="rounded-lg" />
             </div>
-            <p className="text-retro-terminal-green font-mono text-center text-sm">
-              This is me in pixel form!
-            </p>
           </div>
           
           <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners">

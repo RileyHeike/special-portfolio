@@ -62,7 +62,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
       } else {
         clearInterval(typingInterval);
       }
-    }, 50);
+    }, 35);
 
     return () => clearInterval(typingInterval);
   }, []);
@@ -240,7 +240,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
             {/* Achievements based on score - Modified to prevent popups from being cut off */}
             <div className="w-full px-4">
               <h4 className="text-retro-terminal-green font-pixel text-sm mb-2">ACHIEVEMENTS</h4>
-              <div className="flex justify-center gap-2">
+              <div className="flex justify-around">
                 {achievements.slice(0, 5).map((achievement, index) => (
                   <HoverCard key={achievement.id} openDelay={200} closeDelay={100}>
                     <HoverCardTrigger asChild>

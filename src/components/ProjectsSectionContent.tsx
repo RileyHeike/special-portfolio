@@ -8,7 +8,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogClose
 } from '@/components/ui/dialog';
 
 interface Project {
@@ -221,9 +220,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
               <DialogTitle className="text-retro-terminal-green font-pixel text-xl">{selectedProject.title}</DialogTitle>
               <DialogDescription className="sr-only">Project details for {selectedProject.title}</DialogDescription>
             </DialogHeader>
-            <DialogClose className="absolute right-4 top-4 text-retro-terminal-green hover:text-retro-purple">
-              X
-            </DialogClose>
+            
             
             <div className="h-48 bg-retro-terminal-black mb-4 flex items-center justify-center overflow-hidden rounded-lg">
               <FolderGit2 size={80} className="text-retro-purple opacity-50" />
