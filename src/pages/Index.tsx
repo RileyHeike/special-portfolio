@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import TerminalLoader from '@/components/TerminalLoader';
 import MainLayout from '@/components/MainLayout';
@@ -30,6 +31,10 @@ const Index = () => {
   // Apply CRT effect to the body
   useEffect(() => {
     document.body.classList.add('crt');
+    
+    // Hide scrollbars
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
     
     // Easter egg: Konami code detector
     const konamiCode = [
@@ -87,6 +92,8 @@ const Index = () => {
     
     return () => {
       document.body.classList.remove('crt');
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [toast]);

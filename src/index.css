@@ -148,6 +148,19 @@
   .scrollbar-hidden::-webkit-scrollbar {
     display: none;
   }
+  
+  /* Ensure HoverCard popups don't get cut off */
+  .radix-hover-card-content {
+    z-index: 100 !important;
+    pointer-events: auto !important;
+  }
+  
+  /* Make sure the HoverCardContent is fully visible */
+  [data-radix-hover-card-content] {
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    overflow: visible !important;
+  }
 }
 
 @keyframes noise {
