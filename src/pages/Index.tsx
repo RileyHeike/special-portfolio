@@ -32,10 +32,6 @@ const Index = () => {
   useEffect(() => {
     document.body.classList.add('crt');
     
-    // Hide scrollbars
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
-    
     // Easter egg: Konami code detector
     const konamiCode = [
       'ArrowUp', 'ArrowUp', 
@@ -92,8 +88,6 @@ const Index = () => {
     
     return () => {
       document.body.classList.remove('crt');
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [toast]);

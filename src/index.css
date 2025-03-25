@@ -153,6 +153,7 @@
   .radix-hover-card-content {
     z-index: 100 !important;
     pointer-events: auto !important;
+    position: fixed !important;
   }
   
   /* Make sure the HoverCardContent is fully visible */
@@ -160,6 +161,12 @@
     max-width: 100vw !important;
     max-height: 100vh !important;
     overflow: visible !important;
+  }
+
+  /* Ensure HoverCard portals are positioned correctly */
+  [data-radix-popper-content-wrapper] {
+    z-index: 9999 !important;
+    pointer-events: auto !important;
   }
 }
 

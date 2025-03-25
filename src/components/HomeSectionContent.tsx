@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import PixelSprite from './PixelSprite';
 import { Progress } from './ui/progress';
@@ -241,8 +240,8 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
             {/* Achievements based on score - Modified to prevent popups from being cut off */}
             <div className="w-full px-4">
               <h4 className="text-retro-terminal-green font-pixel text-sm mb-2">ACHIEVEMENTS</h4>
-              <div className="flex justify-around">
-                {achievements.slice(0, 5).map((achievement) => (
+              <div className="flex justify-center gap-2">
+                {achievements.slice(0, 5).map((achievement, index) => (
                   <HoverCard key={achievement.id} openDelay={200} closeDelay={100}>
                     <HoverCardTrigger asChild>
                       <div 
@@ -261,7 +260,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
                     <HoverCardContent 
                       className="w-64 bg-retro-terminal-black border border-retro-purple text-retro-terminal-green p-4" 
                       side="top"
-                      align="center"
+                      align={index === 0 ? "start" : index === 4 ? "end" : "center"}
                       avoidCollisions={true}
                       sticky="always"
                       sideOffset={5}
