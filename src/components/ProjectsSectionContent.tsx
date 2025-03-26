@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { FolderGit2, Globe, Github, ExternalLink, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -116,7 +117,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
         {projects.map((project) => (
           <div 
             key={project.id} 
-            className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners cursor-pointer hover:border-retro-terminal-green transition-colors relative"
+            className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners cursor-pointer hover:border-retro-terminal-green transition-colors relative flex flex-col"
             onClick={() => openProjectDetails(project)}
           >
             {project.id === 2 && onCollectCoin && (
@@ -155,7 +156,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
               )}
             </div>
             
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mt-auto">
               <Button 
                 variant="outline" 
                 size="sm" 

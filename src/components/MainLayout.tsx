@@ -1,5 +1,5 @@
 
-import React, { useState, ReactNode } from 'react';
+import React, { useState, ReactNode, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import Coin from '@/components/Coin';
@@ -37,9 +37,21 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   const [isSoundOn, setIsSoundOn] = useState(false);
   const [headerClickCount, setHeaderClickCount] = useState(0);
   const isMobile = useIsMobile();
+  const [isVerySmallScreen, setIsVerySmallScreen] = useState(false);
 
-  // Add an extra check for very small screens
-  const isVerySmallScreen = typeof window !== 'undefined' && window.innerWidth < 400;
+  // Check for very small screens
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsVerySmallScreen(window.innerWidth < 400);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
+  }, []);
 
   const toggleSound = () => {
     setIsSoundOn(!isSoundOn);
@@ -83,7 +95,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           <div className="flex items-center space-x-2">
             <Gamepad2 className="text-retro-purple" size={24} />
             <h1 className="text-lg md:text-2xl font-pixel text-retro-purple tracking-wider">
-              {/* Show shortened title on very small screens */}
               {isVerySmallScreen ? "RETRO" : "RETRO PORTFOLIO"}
             </h1>
           </div>
