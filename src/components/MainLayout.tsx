@@ -3,6 +3,7 @@ import React, { useState, ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import Coin from '@/components/Coin';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { 
   Home, 
   GraduationCap, 
@@ -10,7 +11,9 @@ import {
   FolderGit2, 
   User, 
   Gamepad2,
-  Trophy
+  Trophy,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 
 interface MainLayoutProps {
@@ -33,6 +36,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   const { toast } = useToast();
   const [isSoundOn, setIsSoundOn] = useState(false);
   const [headerClickCount, setHeaderClickCount] = useState(0);
+  const isMobile = useIsMobile();
 
   const toggleSound = () => {
     setIsSoundOn(!isSoundOn);
@@ -78,17 +82,29 @@ const MainLayout: React.FC<MainLayoutProps> = ({
             <h1 className="text-lg md:text-2xl font-pixel text-retro-purple tracking-wider">RETRO PORTFOLIO</h1>
           </div>
           <div className="flex items-center space-x-4">
+            {/* Responsive score display */}
             <div className="flex items-center space-x-2 bg-retro-terminal-black px-3 py-1 rounded border border-retro-purple">
               <Trophy size={16} className="text-retro-pixel-yellow" />
-              <span className="font-pixel text-retro-pixel-yellow text-xs">SCORE: {score}</span>
+              {!isMobile && (
+                <span className="font-pixel text-retro-pixel-yellow text-xs">SCORE: {score}</span>
+              )}
+              {isMobile && (
+                <span className="font-pixel text-retro-pixel-yellow text-xs">{score}</span>
+              )}
             </div>
+            
+            {/* Responsive sound toggle */}
             <Button 
               variant="outline" 
               size="sm" 
               className="font-pixel text-xs border-retro-purple text-retro-purple hover:bg-retro-purple hover:text-retro-dark-purple"
               onClick={toggleSound}
             >
-              {isSoundOn ? 'SOUND: ON' : 'SOUND: OFF'}
+              {isMobile ? (
+                isSoundOn ? <Volume2 size={16} /> : <VolumeX size={16} />
+              ) : (
+                isSoundOn ? 'SOUND: ON' : 'SOUND: OFF'
+              )}
             </Button>
           </div>
         </div>

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import PixelSprite from './PixelSprite';
 import { Progress } from './ui/progress';
@@ -114,9 +115,9 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
 
   return (
     <div className="flex flex-col h-full">
-      {/* Banner that spans the full width */}
+      {/* Banner that spans the full width - adjusted margin to match other pages */}
       <div className="w-full mb-6">
-        <h2 className="text-xl md:text-3xl font-pixel text-retro-purple">
+        <h2 className="text-xl md:text-3xl font-pixel text-retro-purple mb-6">
           <span className="text-retro-terminal-green">&gt;</span> PLAYER ONE READY
         </h2>
       </div>
@@ -157,23 +158,53 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
               <div>ALIGNMENT: <span className="text-retro-purple">Chaotic Good</span></div>
             </div>
           </div>
+          
+          {/* Moved achievements to their own box */}
+          <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners hover:border-retro-pixel-yellow transition-colors duration-300">
+            <h3 className="text-retro-terminal-green font-pixel text-sm mb-4">ACHIEVEMENTS</h3>
+            <div className="flex justify-around">
+              {achievements.slice(0, 5).map((achievement, index) => (
+                <HoverCard key={achievement.id} openDelay={200} closeDelay={100}>
+                  <HoverCardTrigger asChild>
+                    <div 
+                      className={`p-2 rounded-full border-2 
+                        ${achievement.unlocked 
+                          ? 'border-retro-pixel-yellow bg-retro-dark-purple' 
+                          : 'border-retro-purple/30 bg-retro-dark-purple/30'
+                        }`}
+                    >
+                      <TrophyIcon 
+                        size={20} 
+                        className={achievement.unlocked ? 'text-retro-pixel-yellow' : 'text-retro-purple/30'} 
+                      />
+                    </div>
+                  </HoverCardTrigger>
+                  <HoverCardContent 
+                    className="w-64 bg-retro-terminal-black border border-retro-purple text-retro-terminal-green p-4" 
+                    side="top"
+                    align={index === 0 ? "start" : index === 4 ? "end" : "center"}
+                    avoidCollisions={true}
+                    sticky="always"
+                    sideOffset={5}
+                  >
+                    <p className="text-xs font-pixel mb-1">{achievement.name}</p>
+                    <p className="text-xs mb-2">{achievement.description}</p>
+                    <p className="text-xs">
+                      {achievement.unlocked 
+                        ? 'Achievement unlocked!' 
+                        : `Unlock at ${achievement.scoreThreshold} points (current: ${score})`}
+                    </p>
+                  </HoverCardContent>
+                </HoverCard>
+              ))}
+            </div>
+          </div>
         </div>
         
         <div className="w-full md:w-1/2 flex flex-col h-full">
           {/* Character container with same height as the left column */}
           <div className="bg-retro-terminal-black p-6 border-2 border-retro-purple rounded-lg pixel-corners w-full h-full flex flex-col items-center justify-between hover:border-retro-pixel-yellow transition-colors duration-300">
             <h3 className="text-retro-pixel-yellow font-pixel text-lg">YOUR CHARACTER</h3>
-            
-            {/* Health as hearts */}
-            <div className="w-full px-4 mb-4">
-              <div className="flex justify-between items-center mb-1">
-                <span className="text-retro-terminal-green font-pixel text-xs">HP</span>
-                <span className="text-retro-terminal-green font-pixel text-xs">{healthPoints}/10</span>
-              </div>
-              <div className="flex flex-wrap gap-1 justify-center my-2">
-                {renderHearts()}
-              </div>
-            </div>
             
             {/* Class selection */}
             <div className="w-full px-4 mb-4">
@@ -202,7 +233,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
             
             <PixelSprite className="my-4" onClick={handleSpriteClick} />
             
-            {/* Stats based on selected class - Improved to prevent text overlap and span container width */}
+            {/* Stats based on selected class */}
             <div className="w-full px-4 mb-4">
               <h4 className="text-retro-terminal-green font-pixel text-sm mb-2">CLASS STATS</h4>
               <div className="space-y-2 w-full">
@@ -237,44 +268,14 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
               </div>
             </div>
             
-            {/* Achievements based on score - Modified to prevent popups from being cut off */}
-            <div className="w-full px-4">
-              <h4 className="text-retro-terminal-green font-pixel text-sm mb-2">ACHIEVEMENTS</h4>
-              <div className="flex justify-around">
-                {achievements.slice(0, 5).map((achievement, index) => (
-                  <HoverCard key={achievement.id} openDelay={200} closeDelay={100}>
-                    <HoverCardTrigger asChild>
-                      <div 
-                        className={`p-2 rounded-full border-2 
-                          ${achievement.unlocked 
-                            ? 'border-retro-pixel-yellow bg-retro-dark-purple' 
-                            : 'border-retro-purple/30 bg-retro-dark-purple/30'
-                          }`}
-                      >
-                        <TrophyIcon 
-                          size={20} 
-                          className={achievement.unlocked ? 'text-retro-pixel-yellow' : 'text-retro-purple/30'} 
-                        />
-                      </div>
-                    </HoverCardTrigger>
-                    <HoverCardContent 
-                      className="w-64 bg-retro-terminal-black border border-retro-purple text-retro-terminal-green p-4" 
-                      side="top"
-                      align={index === 0 ? "start" : index === 4 ? "end" : "center"}
-                      avoidCollisions={true}
-                      sticky="always"
-                      sideOffset={5}
-                    >
-                      <p className="text-xs font-pixel mb-1">{achievement.name}</p>
-                      <p className="text-xs mb-2">{achievement.description}</p>
-                      <p className="text-xs">
-                        {achievement.unlocked 
-                          ? 'Achievement unlocked!' 
-                          : `Unlock at ${achievement.scoreThreshold} points (current: ${score})`}
-                      </p>
-                    </HoverCardContent>
-                  </HoverCard>
-                ))}
+            {/* HP bar moved to below the class stats */}
+            <div className="w-full px-4 mb-4">
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-retro-terminal-green font-pixel text-xs">HP</span>
+                <span className="text-retro-terminal-green font-pixel text-xs">{healthPoints}/10</span>
+              </div>
+              <div className="flex flex-wrap gap-1 justify-center my-2">
+                {renderHearts()}
               </div>
             </div>
             
