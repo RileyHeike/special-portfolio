@@ -114,13 +114,10 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
   const selectedClass = characterClasses[selectedClassIndex];
 
   return (
-    <div className="flex flex-col h-full">
-      {/* Banner that spans the full width - adjusted margin to match other pages */}
-      <div className="w-full mb-6">
-        <h2 className="text-xl md:text-3xl font-pixel text-retro-purple mb-6">
-          <span className="text-retro-terminal-green">&gt;</span> PLAYER ONE READY
-        </h2>
-      </div>
+    <div className="p-4">
+      <h2 className="text-xl md:text-3xl font-pixel text-retro-purple mb-6">
+        <span className="text-retro-terminal-green">&gt;</span> PLAYER ONE READY
+      </h2>
       
       {/* Content area with aligned columns */}
       <div className="flex flex-col md:flex-row items-stretch justify-between gap-8 flex-grow">
@@ -268,14 +265,13 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
               </div>
             </div>
             
-            {/* HP bar moved to below the class stats */}
+            {/* HP bar moved to below the class stats and modified to show HP label inline with hearts */}
             <div className="w-full px-4 mb-4">
-              <div className="flex justify-between items-center mb-1">
-                <span className="text-retro-terminal-green font-pixel text-xs">HP</span>
-                <span className="text-retro-terminal-green font-pixel text-xs">{healthPoints}/10</span>
-              </div>
-              <div className="flex flex-wrap gap-1 justify-center my-2">
-                {renderHearts()}
+              <div className="flex items-center">
+                <span className="text-retro-terminal-green font-pixel text-xs mr-3">HP</span>
+                <div className="flex flex-wrap gap-1">
+                  {renderHearts()}
+                </div>
               </div>
             </div>
             
