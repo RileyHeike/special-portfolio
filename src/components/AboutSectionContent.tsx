@@ -1,15 +1,45 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import PixelSprite from './PixelSprite';
-import { Heart, Star, Coffee, Music, Gamepad, Book } from 'lucide-react';
+import { Heart, Star, Coffee, Music, Gamepad, Book, X } from 'lucide-react';
+import { 
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogClose
+} from './ui/dialog';
 
 const AboutSectionContent: React.FC = () => {
   const personalInfo = {
     bio: "Hi there! I'm a passionate web developer with a love for creating engaging user experiences. When I'm not coding, you can find me playing retro games, hiking in nature, or experimenting with new recipes.",
     interests: [
-      { icon: <Gamepad size={16} />, text: "Retro Gaming" },
-      { icon: <Book size={16} />, text: "Sci-Fi Novels" },
-      { icon: <Music size={16} />, text: "Synth Music" },
-      { icon: <Coffee size={16} />, text: "Coffee Brewing" }
+      { 
+        icon: <Gamepad size={16} />, 
+        text: "Retro Gaming",
+        description: "I collect and play classic games from the 80s and 90s. My favorites include Super Metroid, Chrono Trigger, and the original Legend of Zelda. I even maintain a small collection of working retro consoles!",
+        fact: "I once participated in a 24-hour retro gaming marathon for charity."
+      },
+      { 
+        icon: <Book size={16} />, 
+        text: "Sci-Fi Novels",
+        description: "I'm an avid reader of science fiction, especially works by Asimov, Le Guin, and Gibson. The blend of futuristic technology and human experience fascinates me.",
+        fact: "I have a first edition of Neuromancer in my book collection."
+      },
+      { 
+        icon: <Music size={16} />, 
+        text: "Synth Music",
+        description: "I'm passionate about synthesizer music and electronic production. I even create my own tracks using a modest home studio setup with analog and digital synthesizers.",
+        fact: "I released a small EP of synthwave tracks on Bandcamp last year."
+      },
+      { 
+        icon: <Coffee size={16} />, 
+        text: "Coffee Brewing",
+        description: "I'm a coffee enthusiast who enjoys experimenting with different brewing methods. From pour-over to AeroPress, I'm always looking to perfect the extraction.",
+        fact: "I roast small batches of coffee beans at home using a modified popcorn maker."
+      }
     ],
     funFacts: [
       "I've beaten every Final Fantasy game",
@@ -57,10 +87,33 @@ const AboutSectionContent: React.FC = () => {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 {personalInfo.interests.map((interest, index) => (
-                  <div key={index} className="flex items-center">
-                    <div className="mr-2 text-retro-purple">{interest.icon}</div>
-                    <span className="text-retro-terminal-green font-mono">{interest.text}</span>
-                  </div>
+                  <Dialog key={index}>
+                    <DialogTrigger asChild>
+                      <div className="flex items-center cursor-pointer hover:bg-retro-dark-purple/50 p-2 rounded transition-colors">
+                        <div className="mr-2 text-retro-purple">{interest.icon}</div>
+                        <span className="text-retro-terminal-green font-mono">{interest.text}</span>
+                      </div>
+                    </DialogTrigger>
+                    <DialogContent className="bg-retro-terminal-black border-2 border-retro-purple pixel-corners max-w-md animate-in data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-bottom-5">
+                      <DialogHeader>
+                        <DialogTitle className="text-retro-pixel-yellow font-pixel flex items-center">
+                          <div className="mr-2 text-retro-purple">{interest.icon}</div>
+                          {interest.text}
+                        </DialogTitle>
+                      </DialogHeader>
+                      <div className="mt-4 text-retro-terminal-green font-mono">
+                        <p className="mb-4">{interest.description}</p>
+                        <div className="bg-retro-dark-purple p-3 rounded-lg mb-2">
+                          <p className="text-sm font-pixel text-retro-pixel-yellow mb-1">FUN FACT</p>
+                          <p className="text-sm">{interest.fact}</p>
+                        </div>
+                      </div>
+                      <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+                        <X className="h-4 w-4 text-retro-pixel-yellow" />
+                        <span className="sr-only">Close</span>
+                      </DialogClose>
+                    </DialogContent>
+                  </Dialog>
                 ))}
               </div>
             </div>
