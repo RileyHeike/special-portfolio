@@ -121,8 +121,8 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
       {/* Content area with aligned columns */}
       <div className="flex flex-col md:flex-row items-stretch justify-between gap-8 flex-grow">
         <div className="w-full md:w-1/2 flex flex-col space-y-6">
-          {/* Fixed height for the welcome message box based on full text length */}
-          <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners h-32">
+          {/* Added hover effect to the welcome message box */}
+          <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners h-32 hover:border-retro-terminal-green transition-colors duration-300 cursor-pointer" onClick={onInteraction}>
             <p className="font-mono text-retro-terminal-green">
               {typedText}
               <span className="animate-blink inline-block h-4 w-2 ml-1 bg-retro-terminal-green"></span>
@@ -155,7 +155,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
             </div>
           </div>
           
-          {/* Achievements section with added description text */}
+          {/* Achievements section with description text */}
           <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners hover:border-retro-pixel-yellow transition-colors duration-300">
             <h3 className="text-retro-terminal-green font-pixel text-sm mb-2">ACHIEVEMENTS</h3>
             <p className="text-xs text-retro-terminal-green mb-4">Explore the portfolio to collect points and unlock achievements. Find hidden coins, discover secrets, and try special key combinations!</p>

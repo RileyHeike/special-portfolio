@@ -38,6 +38,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   const [headerClickCount, setHeaderClickCount] = useState(0);
   const isMobile = useIsMobile();
 
+  // Add an extra check for very small screens
+  const isVerySmallScreen = typeof window !== 'undefined' && window.innerWidth < 400;
+
   const toggleSound = () => {
     setIsSoundOn(!isSoundOn);
     toast({
@@ -79,7 +82,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         <div className="container mx-auto flex flex-wrap justify-between items-center">
           <div className="flex items-center space-x-2">
             <Gamepad2 className="text-retro-purple" size={24} />
-            <h1 className="text-lg md:text-2xl font-pixel text-retro-purple tracking-wider">RETRO PORTFOLIO</h1>
+            <h1 className="text-lg md:text-2xl font-pixel text-retro-purple tracking-wider">
+              {/* Show shortened title on very small screens */}
+              {isVerySmallScreen ? "RETRO" : "RETRO PORTFOLIO"}
+            </h1>
           </div>
           <div className="flex items-center space-x-4">
             {/* Responsive score display */}
