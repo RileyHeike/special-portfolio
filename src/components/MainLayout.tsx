@@ -91,16 +91,16 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         className="p-4 border-b border-retro-purple bg-retro-dark-purple"
         onClick={handleHeaderClick}
       >
-        <div className="container mx-auto flex flex-wrap justify-between items-center">
+        <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <Gamepad2 className="text-retro-purple" size={24} />
             <h1 className="text-lg md:text-2xl font-pixel text-retro-purple tracking-wider">
               {isVerySmallScreen ? "RETRO" : "RETRO PORTFOLIO"}
             </h1>
           </div>
-          <div className="flex items-center space-x-4">
-            {/* Responsive score display */}
-            <div className="flex items-center space-x-2 bg-retro-terminal-black px-3 py-1 rounded border border-retro-purple">
+          <div className="flex items-center space-x-2">
+            {/* Score display - same height as sound button */}
+            <div className="h-9 flex items-center space-x-2 bg-retro-terminal-black px-3 py-1 rounded border border-retro-purple">
               <Trophy size={16} className="text-retro-pixel-yellow" />
               {!isMobile && (
                 <span className="font-pixel text-retro-pixel-yellow text-xs">SCORE: {score}</span>
@@ -110,10 +110,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
               )}
             </div>
             
-            {/* Responsive sound toggle */}
+            {/* Sound toggle - using Button with size="sm" which is h-9 */}
             <Button 
               variant="outline" 
-              size="sm" 
+              size="sm"
               className="font-pixel text-xs border-retro-purple text-retro-purple hover:bg-retro-purple hover:text-retro-dark-purple"
               onClick={toggleSound}
             >
