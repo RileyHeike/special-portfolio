@@ -21,7 +21,7 @@ const SkillBar: React.FC<SkillBarProps> = ({
     <div>
       <div className="flex justify-between mb-1">
         <span className="text-retro-terminal-green font-mono">{skill.name}</span>
-        <span className={`${colorClass} font-mono`}>{skill.level}/100</span>
+        <span className="text-retro-terminal-green font-mono">{skill.level}/100</span>
       </div>
       <div className={`w-full h-3 ${bgColorClass} rounded-sm overflow-hidden`}>
         <div 
