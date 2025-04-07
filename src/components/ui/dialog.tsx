@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
@@ -29,11 +28,8 @@ const DialogOverlay = React.forwardRef<
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 
 // Custom interest modal animation class
-const interestAnimationClass = `
-  before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full 
-  before:bg-retro-pixel-green/30 before:z-[-1] before:scale-0 before:origin-center
-  data-[state=open]:before:animate-[interest-reveal_0.6s_ease_forwards]
-`;
+const interestAnimationClass = 
+  "data-[state=open]:before:animate-[interest-reveal_0.6s_ease_forwards] before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-retro-pixel-green/30 before:z-[-1] before:scale-0 before:origin-center before:rounded-full";
 
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
@@ -54,7 +50,7 @@ const DialogContent = React.forwardRef<
       {...props}
     >
       {children}
-      <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+      <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-transparent transition-opacity hover:opacity-100 focus:outline-none focus:ring-0 disabled:pointer-events-none data-[state=open]:bg-transparent">
         <X className="h-4 w-4" />
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close>

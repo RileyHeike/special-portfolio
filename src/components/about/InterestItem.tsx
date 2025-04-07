@@ -31,7 +31,7 @@ const InterestItem: React.FC<InterestItemProps> = ({ interest, index }) => {
           <span className="text-retro-terminal-green font-mono">{interest.text}</span>
         </div>
       </DialogTrigger>
-      <DialogContent className="bg-retro-terminal-black border-2 border-retro-purple pixel-corners max-w-md animate-interest-reveal">
+      <DialogContent className="bg-retro-terminal-black border-2 border-retro-purple pixel-corners max-w-md" variant="interest">
         <DialogHeader>
           <DialogTitle className="text-retro-pixel-yellow font-pixel flex items-center">
             <div className="mr-2 text-retro-purple">{interest.icon}</div>
@@ -45,8 +45,8 @@ const InterestItem: React.FC<InterestItemProps> = ({ interest, index }) => {
             <p className="text-sm">{interest.fact}</p>
           </div>
         </div>
-        <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-          <X className="h-4 w-4 text-retro-pixel-yellow" />
+        <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-transparent transition-opacity hover:opacity-100 focus:outline-none focus:ring-0 disabled:pointer-events-none data-[state=open]:bg-transparent text-retro-pixel-yellow">
+          <X className="h-4 w-4" />
           <span className="sr-only">Close</span>
         </DialogClose>
       </DialogContent>
