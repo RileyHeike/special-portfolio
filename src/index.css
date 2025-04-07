@@ -185,23 +185,31 @@
     }
   }
 
-  /* Add interest reveal animation keyframe - different from chest opening */
+  /* Add interest reveal animation keyframe - radial animation for interest modals */
   @keyframes interest-reveal {
     0% {
       transform: scale(0);
       opacity: 0.3;
       border-radius: 50%;
+      background-color: rgba(51, 255, 51, 0.1);
     }
     60% {
       transform: scale(1.1);
       opacity: 0.7;
       border-radius: 25%;
+      background-color: rgba(51, 255, 51, 0.05);
     }
     100% {
       transform: scale(1);
-      opacity: 0;
+      opacity: 1;
       border-radius: 0%;
+      background-color: transparent;
     }
+  }
+
+  .animate-interest-reveal {
+    animation: interest-reveal 0.3s ease-out;
+    transform-origin: center;
   }
 
   @keyframes noise {

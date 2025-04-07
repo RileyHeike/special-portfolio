@@ -1,26 +1,9 @@
 
 import React, { useState } from 'react';
-import { FolderGit2, Globe, Github, ExternalLink, Code } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import Coin from '@/components/Coin';
-import { 
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  technologies: string[];
-  githubUrl?: string;
-  liveUrl?: string;
-  features: string[];
-}
+import { Dialog } from '@/components/ui/dialog';
+import ProjectCard from './projects/ProjectCard';
+import ProjectDetails from './projects/ProjectDetails';
+import { Project } from './projects/ProjectTypes';
 
 interface ProjectsSectionContentProps {
   onCollectCoin?: (id: string, value: number) => void;
@@ -115,171 +98,23 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((project) => (
-          <div 
-            key={project.id} 
-            className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners cursor-pointer hover:border-retro-terminal-green transition-colors relative flex flex-col"
-            onClick={() => openProjectDetails(project)}
-          >
-            {project.id === 2 && onCollectCoin && (
-              <div className="absolute top-2 right-2 opacity-0 hover:opacity-100 coin-hidden transition-opacity duration-300">
-                <Coin 
-                  id={`project-${project.id}-coin`} 
-                  value={75} 
-                  onCollect={onCollectCoin}
-                  isCollected={coins[`project-${project.id}-coin`] || false}
-                />
-              </div>
-            )}
-            
-            <div className="h-40 bg-retro-dark-purple mb-4 flex items-center justify-center overflow-hidden rounded-lg">
-              <FolderGit2 size={64} className="text-retro-purple opacity-50" />
-            </div>
-            
-            <h3 className="text-retro-terminal-green font-pixel text-lg mb-2">{project.title}</h3>
-            <p className="text-retro-terminal-green font-mono text-sm mb-4 h-12 overflow-hidden">
-              {project.description}
-            </p>
-            
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.technologies.slice(0, 3).map((tech, i) => (
-                <span 
-                  key={i} 
-                  className="bg-retro-dark-purple text-retro-terminal-green px-2 py-1 rounded font-mono text-xs"
-                >
-                  {tech}
-                </span>
-              ))}
-              {project.technologies.length > 3 && (
-                <span className="bg-retro-dark-purple text-retro-terminal-green px-2 py-1 rounded font-mono text-xs">
-                  +{project.technologies.length - 3}
-                </span>
-              )}
-            </div>
-            
-            <div className="flex justify-between items-center mt-auto">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="text-xs border-retro-purple text-retro-purple hover:bg-retro-purple hover:text-retro-dark-purple font-pixel"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  openProjectDetails(project);
-                }}
-              >
-                VIEW DETAILS
-              </Button>
-              
-              <div className="flex space-x-2">
-                {project.githubUrl && (
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="text-retro-terminal-green hover:text-retro-purple"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(project.githubUrl, '_blank');
-                    }}
-                  >
-                    <Github size={18} />
-                  </Button>
-                )}
-                
-                {project.liveUrl && (
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="text-retro-terminal-green hover:text-retro-purple"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(project.liveUrl, '_blank');
-                    }}
-                  >
-                    <Globe size={18} />
-                  </Button>
-                )}
-              </div>
-            </div>
-          </div>
+          <ProjectCard
+            key={project.id}
+            project={project}
+            onOpenDetails={openProjectDetails}
+            onCollectCoin={onCollectCoin}
+            coins={coins}
+          />
         ))}
       </div>
       
       <Dialog open={!!selectedProject} onOpenChange={(open) => !open && closeProjectDetails()}>
         {selectedProject && (
-          <DialogContent className="bg-retro-dark-purple border-2 border-retro-purple rounded-lg pixel-corners p-6 max-w-2xl w-full relative fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            {selectedProject.id === 3 && onCollectCoin && (
-              <div className="absolute top-2 right-12 opacity-0 hover:opacity-100 coin-hidden transition-opacity duration-300">
-                <Coin 
-                  id={`project-modal-${selectedProject.id}-coin`} 
-                  value={100} 
-                  onCollect={onCollectCoin}
-                  isCollected={coins[`project-modal-${selectedProject.id}-coin`] || false}
-                />
-              </div>
-            )}
-            
-            <DialogHeader>
-              <DialogTitle className="text-retro-terminal-green font-pixel text-xl">{selectedProject.title}</DialogTitle>
-              <DialogDescription className="sr-only">Project details for {selectedProject.title}</DialogDescription>
-            </DialogHeader>
-            
-            
-            <div className="h-48 bg-retro-terminal-black mb-4 flex items-center justify-center overflow-hidden rounded-lg">
-              <FolderGit2 size={80} className="text-retro-purple opacity-50" />
-            </div>
-            
-            <p className="text-retro-terminal-green font-mono mb-4">{selectedProject.description}</p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-              <div>
-                <h4 className="text-retro-pixel-yellow font-pixel text-sm mb-2">KEY FEATURES</h4>
-                <ul className="list-disc list-inside text-retro-terminal-green font-mono">
-                  {selectedProject.features.map((feature, i) => (
-                    <li key={i} className="mb-1">{feature}</li>
-                  ))}
-                </ul>
-              </div>
-              
-              <div>
-                <h4 className="text-retro-pixel-green font-pixel text-sm mb-2">TECHNOLOGIES</h4>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProject.technologies.map((tech, i) => (
-                    <span 
-                      key={i} 
-                      className="bg-retro-terminal-black text-retro-terminal-green px-2 py-1 rounded font-mono text-xs"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-            
-            <div className="flex justify-center space-x-4">
-              {selectedProject.githubUrl && (
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="text-xs border-retro-purple text-retro-purple hover:bg-retro-purple hover:text-retro-dark-purple font-pixel flex items-center"
-                  onClick={() => window.open(selectedProject.githubUrl, '_blank')}
-                >
-                  <Github size={16} className="mr-2" />
-                  VIEW CODE
-                </Button>
-              )}
-              
-              {selectedProject.liveUrl && (
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="text-xs border-retro-purple text-retro-purple hover:bg-retro-purple hover:text-retro-dark-purple font-pixel flex items-center"
-                  onClick={() => window.open(selectedProject.liveUrl, '_blank')}
-                >
-                  <ExternalLink size={16} className="mr-2" />
-                  LIVE DEMO
-                </Button>
-              )}
-            </div>
-          </DialogContent>
+          <ProjectDetails
+            project={selectedProject}
+            onCollectCoin={onCollectCoin}
+            coins={coins}
+          />
         )}
       </Dialog>
     </div>
