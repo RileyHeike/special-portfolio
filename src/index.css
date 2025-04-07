@@ -1,219 +1,184 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 @layer base {
   :root {
-    --background: 240 5% 10%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
 
-    --card: 240 5% 10%;
-    --card-foreground: 0 0% 98%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    --popover: 240 5% 10%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
 
-    --primary: 267 100% 75%;
-    --primary-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
 
-    --muted: 240 5% 15%;
-    --muted-foreground: 240 5% 65%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
 
-    --accent: 265 89% 78%;
-    --accent-foreground: 0 0% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 240 5% 20%;
-    --input: 240 5% 20%;
-    --ring: 267 100% 75%;
+    --ring: 222.2 47.4% 11.2%;
 
     --radius: 0.5rem;
-
-    --sidebar-background: 240 5% 10%;
-    --sidebar-foreground: 240 5% 65%;
-    --sidebar-primary: 267 100% 75%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 5% 15%;
-    --sidebar-accent-foreground: 240 5% 65%;
-    --sidebar-border: 240 5% 20%;
-    --sidebar-ring: 267 100% 75%;
   }
 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 217.2 32.6% 17.5%;
+  }
+}
+
+@layer base {
   * {
     @apply border-border;
   }
-
   body {
-    @apply bg-retro-terminal-black text-retro-terminal-green font-mono min-h-screen;
-    overflow-x: hidden;
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
+}
 
-  /* CRT Screen Effect */
-  .crt::before {
-    content: " ";
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    pointer-events: none;
-    background: rgba(18, 16, 16, 0.1);
-    opacity: 0.15;
-    z-index: 2;
-    animation: noise 0.2s infinite;
-  }
+/* Custom styles */
+.retro-font {
+  font-family: 'VT323', monospace;
+}
 
-  .crt::after {
-    content: " ";
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-    background-size: 100% 4px;
-    z-index: 2;
-    pointer-events: none;
-  }
+.crt {
+  /* CRT lines */
+  background:
+    radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,.15) 100%),
+    repeating-linear-gradient(0deg, rgba(0,0,0,0), rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+  background-size: 100%, 4px 4px;
+}
 
-  /* Scanline Effect */
-  .scanline {
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(51, 255, 51, 0.1) 50%,
-      transparent 100%
-    );
-    background-size: 100% 10px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-  }
+.pixel-corners {
+  border-image-source: url("data:image/svg+xml,%3Csvg width='8' height='8' viewBox='0 0 8 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0H3V3H0V0Z' fill='%237c3aed'/%3E%3Cpath d='M5 0H8V3H5V0Z' fill='%237c3aed'/%3E%3Cpath d='M5 5H8V8H5V5Z' fill='%237c3aed'/%3E%3Cpath d='M0 5H3V8H0V5Z' fill='%237c3aed'/%3E%3C/svg%3E");
+  border-image-slice: 3;
+}
 
-  .pixel-corners {
-    clip-path: polygon(
-      0px 8px,
-      4px 8px,
-      4px 4px,
-      8px 4px,
-      8px 0px,
-      calc(100% - 8px) 0px,
-      calc(100% - 8px) 4px,
-      calc(100% - 4px) 4px,
-      calc(100% - 4px) 8px,
-      100% 8px,
-      100% calc(100% - 8px),
-      calc(100% - 4px) calc(100% - 8px),
-      calc(100% - 4px) calc(100% - 4px),
-      calc(100% - 8px) calc(100% - 4px),
-      calc(100% - 8px) 100%,
-      8px 100%,
-      8px calc(100% - 4px),
-      4px calc(100% - 4px),
-      4px calc(100% - 8px),
-      0px calc(100% - 8px)
-    );
-  }
-  
-  /* Hide all scrollbars */
-  ::-webkit-scrollbar {
-    display: none;
-  }
+.retro-terminal-green {
+  color: #a3e635;
+}
 
-  * {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-  }
-  
-  /* Class to hide scrollbars */
-  .scrollbar-hidden {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  
-  .scrollbar-hidden::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Ensure HoverCard popups don't get cut off */
-  .radix-hover-card-content {
-    z-index: 100 !important;
-    pointer-events: auto !important;
-    position: fixed !important;
-  }
-  
-  /* Make sure the HoverCardContent is fully visible */
-  [data-radix-hover-card-content] {
-    max-width: 100vw !important;
-    max-height: 100vh !important;
-    overflow: visible !important;
-  }
+.retro-purple {
+  color: #7c3aed;
+}
 
-  /* Ensure HoverCard portals are positioned correctly */
-  [data-radix-popper-content-wrapper] {
-    z-index: 9999 !important;
-    pointer-events: auto !important;
-  }
+.retro-dark-purple {
+  background-color: #312e81;
+}
 
-  /* Add chest opening animation keyframe */
-  @keyframes chest-open {
-    0% {
-      transform: scaleY(0);
-      opacity: 0.3;
-    }
-    50% {
-      transform: scaleY(0.5);
-      opacity: 0.6;
-    }
-    100% {
-      transform: scaleY(1);
-      opacity: 0;
-    }
-  }
+.retro-pixel-yellow {
+  color: #facc15;
+}
 
-  /* Add interest reveal animation keyframe - different from chest opening */
-  @keyframes interest-reveal {
-    0% {
-      transform: scale(0);
-      opacity: 0.3;
-      border-radius: 50%;
-    }
-    60% {
-      transform: scale(1.1);
-      opacity: 0.7;
-      border-radius: 25%;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 0;
-      border-radius: 0%;
-    }
-  }
+.retro-pixel-green {
+  color: #84cc16;
+}
 
-  @keyframes noise {
-    0%, 100% { background-position: 0 0; }
-    10% { background-position: -5% -10%; }
-    20% { background-position: 10% 5%; }
-    30% { background-position: -10% 10%; }
-    40% { background-position: 15% -5%; }
-    50% { background-position: -5% 15%; }
-    60% { background-position: 5% 5%; }
-    70% { background-position: -10% -10%; }
-    80% { background-position: 10% 10%; }
-    90% { background-position: 5% -5%; }
+.retro-pixel-red {
+  color: #dc2626;
+}
+
+.retro-neon-blue {
+  color: #06b6d4;
+}
+
+.retro-amber {
+  color: #f59e0b;
+}
+
+.retro-terminal-black {
+  background-color: #18181b;
+}
+
+.coin-hidden {
+  opacity: 0;
+}
+
+.coin-hidden:hover {
+  opacity: 1;
+}
+
+.reveal-coins .coin-hidden {
+  opacity: 1 !important;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes chest-open {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes interest-reveal {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }

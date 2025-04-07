@@ -205,21 +205,24 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
       
       <Dialog open={!!selectedProject} onOpenChange={(open) => !open && closeProjectDetails()}>
         {selectedProject && (
-          <DialogContent className="bg-retro-dark-purple border-2 border-retro-purple rounded-lg pixel-corners p-6 max-w-2xl w-full relative fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <DialogContent className="bg-retro-dark-purple border-2 border-retro-purple rounded-lg pixel-corners p-6 max-w-2xl w-full">
             {selectedProject.id === 3 && onCollectCoin && (
-              <div className="absolute top-2 right-12 opacity-0 hover:opacity-100 coin-hidden transition-opacity duration-300">
+              <div className="absolute top-2 right-12 opacity-60 hover:opacity-100 transition-opacity duration-300 z-50">
                 <Coin 
                   id={`project-modal-${selectedProject.id}-coin`} 
                   value={100} 
                   onCollect={onCollectCoin}
                   isCollected={coins[`project-modal-${selectedProject.id}-coin`] || false}
+                  position="absolute"
                 />
               </div>
             )}
             
             <DialogHeader>
               <DialogTitle className="text-retro-terminal-green font-pixel text-xl">{selectedProject.title}</DialogTitle>
-              <DialogDescription className="sr-only">Project details for {selectedProject.title}</DialogDescription>
+              <DialogDescription className="text-retro-terminal-green/70">
+                Project details for {selectedProject.title}
+              </DialogDescription>
             </DialogHeader>
             
             

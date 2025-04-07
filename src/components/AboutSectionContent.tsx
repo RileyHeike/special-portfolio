@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import PixelSprite from './PixelSprite';
 import { Heart, Star, Coffee, Music, Gamepad, Book, X } from 'lucide-react';
@@ -94,12 +93,18 @@ const AboutSectionContent: React.FC = () => {
                         <span className="text-retro-terminal-green font-mono">{interest.text}</span>
                       </div>
                     </DialogTrigger>
-                    <DialogContent className="bg-retro-terminal-black border-2 border-retro-purple pixel-corners max-w-md animate-in data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-bottom-5">
+                    <DialogContent 
+                      variant="interest" 
+                      className="bg-retro-terminal-black border-2 border-retro-purple pixel-corners max-w-md animate-in data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-bottom-5"
+                    >
                       <DialogHeader>
                         <DialogTitle className="text-retro-pixel-yellow font-pixel flex items-center">
                           <div className="mr-2 text-retro-purple">{interest.icon}</div>
                           {interest.text}
                         </DialogTitle>
+                        <DialogDescription className="sr-only">
+                          Details about {interest.text}
+                        </DialogDescription>
                       </DialogHeader>
                       <div className="mt-4 text-retro-terminal-green font-mono">
                         <p className="mb-4">{interest.description}</p>
