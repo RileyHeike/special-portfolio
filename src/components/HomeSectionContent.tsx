@@ -9,6 +9,7 @@ interface HomeSectionContentProps {
   score?: number;
 }
 
+// Character classes with preset stats
 const characterClasses = [
   {
     name: "Warrior",
@@ -32,6 +33,7 @@ const characterClasses = [
   }
 ];
 
+// Achievement definitions with score thresholds
 const achievementDefinitions = [
   { id: 1, name: "First Visitor", description: "Visit the portfolio for the first time", scoreThreshold: 0 },
   { id: 2, name: "Explorer", description: "Find your first hidden coin", scoreThreshold: 25 },
@@ -65,6 +67,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
     return () => clearInterval(typingInterval);
   }, []);
 
+  // Update achievements based on score
   useEffect(() => {
     setAchievements(achievementDefinitions.map(a => ({
       ...a,
@@ -72,14 +75,17 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
     })));
   }, [score]);
 
+  // Handle click interactions
   const handleSpriteClick = () => {
     if (onInteraction && !hasInteracted) {
       onInteraction();
       setHasInteracted(true);
+      // Reset after a delay to allow multiple interactions
       setTimeout(() => setHasInteracted(false), 2000);
     }
   };
 
+  // Handle class selection
   const handlePreviousClass = () => {
     setSelectedClassIndex(prev => (prev > 0 ? prev - 1 : characterClasses.length - 1));
   };
@@ -88,6 +94,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
     setSelectedClassIndex(prev => (prev < characterClasses.length - 1 ? prev + 1 : 0));
   };
 
+  // Render hearts for health
   const renderHearts = () => {
     const hearts = [];
     for (let i = 0; i < 10; i++) {
@@ -102,6 +109,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
     return hearts;
   };
 
+  // Get the currently selected class
   const selectedClass = characterClasses[selectedClassIndex];
 
   return (
@@ -110,8 +118,10 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
         <span className="text-retro-terminal-green">&gt;</span> PLAYER ONE READY
       </h2>
       
+      {/* Content area with aligned columns */}
       <div className="flex flex-col md:flex-row items-stretch justify-between gap-8 flex-grow">
         <div className="w-full md:w-1/2 flex flex-col space-y-6">
+          {/* Added hover effect to the welcome message box */}
           <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners h-32 hover:border-retro-terminal-green transition-colors duration-300 cursor-pointer" onClick={onInteraction}>
             <p className="font-mono text-retro-terminal-green">
               {typedText}
@@ -145,7 +155,8 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
             </div>
           </div>
           
-          <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners hover:border-retro-pixel-yellow transition-colors duration-300 h-48">
+          {/* Achievements section with description text */}
+          <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners hover:border-retro-pixel-yellow transition-colors duration-300">
             <h3 className="text-retro-terminal-green font-pixel text-sm mb-2">ACHIEVEMENTS</h3>
             <p className="text-xs text-retro-terminal-green mb-4">Explore the portfolio to collect points and unlock achievements. Find hidden coins, discover secrets, and try special key combinations!</p>
             <div className="flex justify-around">
@@ -188,9 +199,11 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
         </div>
         
         <div className="w-full md:w-1/2 flex flex-col h-full">
+          {/* Character container with same height as the left column */}
           <div className="bg-retro-terminal-black p-6 border-2 border-retro-purple rounded-lg pixel-corners w-full h-full flex flex-col items-center justify-between hover:border-retro-pixel-yellow transition-colors duration-300">
             <h3 className="text-retro-pixel-yellow font-pixel text-lg">YOUR CHARACTER</h3>
             
+            {/* Class selection */}
             <div className="w-full px-4 mb-4">
               <div className="flex items-center justify-between mb-2">
                 <h4 className="text-retro-terminal-green font-pixel text-sm">CHARACTER CLASS</h4>
@@ -217,6 +230,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
             
             <PixelSprite className="my-4" onClick={handleSpriteClick} />
             
+            {/* Stats based on selected class */}
             <div className="w-full px-4 mb-4">
               <h4 className="text-retro-terminal-green font-pixel text-sm mb-2">CLASS STATS</h4>
               <div className="space-y-2 w-full">
@@ -224,20 +238,25 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
                   <HoverCard key={stat}>
                     <HoverCardTrigger asChild>
                       <div className="flex items-center group w-full">
+                        
+                        {/* Left Hand Side Label */}
                         <span className="text-retro-terminal-green font-pixel text-xs w-20 capitalize">
                           {stat}
                         </span>
+
+                        {/* Bar and Value */}
                         <div className="ml-auto flex items-center space-x-2 w-[70%]">
-                          <Progress 
-                            value={value} 
-                            className="h-2 w-full bg-retro-dark-purple"
-                          />
+                            <Progress 
+                              value={value} 
+                              className="h-2 w-full bg-retro-dark-purple"
+                            />
                           <span className="text-retro-terminal-green font-pixel text-xs min-w-[2rem] text-right">
                             {value}
                           </span>
                         </div>
                       </div>
                     </HoverCardTrigger>
+
                     <HoverCardContent className="w-64 bg-retro-terminal-black border border-retro-purple text-retro-terminal-green p-4">
                       <p className="text-xs">The {selectedClass.name} class has {value}% {stat}.</p>
                     </HoverCardContent>
@@ -246,6 +265,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
               </div>
             </div>
             
+            {/* HP bar moved to below the class stats and modified to align hearts right */}
             <div className="w-full px-4 mb-4">
               <div className="flex items-center justify-between">
                 <span className="text-retro-terminal-green font-pixel text-xs">HP</span>
