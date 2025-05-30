@@ -19,65 +19,70 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
   const projects: Project[] = [
     {
       id: 1,
-      title: "Project Manager",
-      description: "A full-featured e-commerce platform with product listings, cart functionality, and secure checkout.",
+      title: "Student Body President",
+      description: "Led a diverse student body of 15,000+ students, implementing campus-wide initiatives focused on mental health awareness, sustainability programs, and academic support services. Successfully advocated for policy changes that improved campus dining options and extended library hours during finals week.",
       image: "https://placeholder.svg",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe", "Redux"],
-      githubUrl: "https://github.com/username/e-commerce",
-      liveUrl: "https://example.com/e-commerce",
+      organization: "University of California, Berkeley",
+      duration: "September 2022 - May 2023",
+      teamSize: "Executive team of 12 members",
+      technologies: ["Public Speaking", "Policy Development", "Budget Management", "Team Leadership", "Crisis Management"],
       features: [
-        "Product search and filtering",
-        "User authentication",
-        "Shopping cart",
-        "Payment processing",
-        "Order history"
+        "Increased student engagement by 40% through innovative programming",
+        "Secured $50,000 additional funding for student mental health resources",
+        "Implemented campus sustainability initiative reducing waste by 25%",
+        "Established mentorship program connecting upperclassmen with freshmen",
+        "Led successful campaign for extended campus facility hours"
       ]
     },
     {
       id: 2,
-      title: "Weather Dashboard",
-      description: "An interactive weather application showing current conditions and forecasts for any location.",
+      title: "Team Captain - Varsity Soccer",
+      description: "Captained a championship-winning varsity soccer team, fostering team unity and driving performance improvements through strategic leadership and mentorship. Developed training programs that enhanced team performance and maintained high academic standards among team members.",
       image: "https://placeholder.svg",
-      technologies: ["JavaScript", "OpenWeather API", "CSS", "HTML5", "Chart.js"],
-      githubUrl: "https://github.com/username/weather-app",
-      liveUrl: "https://example.com/weather",
+      organization: "Berkeley High School",
+      duration: "August 2021 - June 2022",
+      teamSize: "23 team members",
+      technologies: ["Athletic Leadership", "Performance Coaching", "Conflict Resolution", "Strategic Planning", "Motivation"],
       features: [
-        "5-day forecast",
-        "Interactive maps",
-        "Location search",
-        "Weather alerts",
-        "Unit conversion"
+        "Led team to regional championship victory",
+        "Improved team GPA from 3.2 to 3.7 through academic accountability program",
+        "Reduced team conflicts by 60% through effective communication strategies",
+        "Implemented peer mentoring system for younger players",
+        "Organized community service initiatives increasing team's local impact"
       ]
     },
     {
       id: 3,
-      title: "Task Management App",
-      description: "A productivity application for managing tasks, projects, and deadlines with team collaboration features.",
+      title: "Volunteer Coordinator",
+      description: "Organized and managed volunteer programs for a local non-profit, coordinating efforts across multiple community initiatives. Developed recruitment strategies and training programs that significantly increased volunteer retention and program effectiveness.",
       image: "https://placeholder.svg",
-      technologies: ["Vue.js", "Firebase", "Vuex", "TailwindCSS"],
-      githubUrl: "https://github.com/username/task-manager",
-      liveUrl: "https://example.com/tasks",
+      organization: "Bay Area Community Center",
+      duration: "January 2021 - August 2022",
+      teamSize: "200+ volunteers managed",
+      technologies: ["Volunteer Management", "Program Development", "Community Outreach", "Training Design", "Event Planning"],
       features: [
-        "Drag-and-drop task organization",
-        "Team collaboration",
-        "Deadline notifications",
-        "Progress tracking",
-        "File attachments"
+        "Increased volunteer retention rate from 45% to 78%",
+        "Coordinated 15+ community events serving 500+ families",
+        "Developed comprehensive volunteer training program",
+        "Established partnerships with 8 local schools and organizations",
+        "Managed volunteer database and scheduling system for 200+ volunteers"
       ]
     },
     {
       id: 4,
-      title: "Fitness Tracker",
-      description: "An application to track workouts, nutrition, and fitness goals with visual progress reports.",
+      title: "Youth Leadership Program Director",
+      description: "Directed a summer leadership program for at-risk youth, designing curriculum and activities that developed leadership skills, built confidence, and provided mentorship opportunities. Successfully graduated 95% of participants who went on to leadership roles in their schools.",
       image: "https://placeholder.svg",
-      technologies: ["React Native", "GraphQL", "Apollo", "Expo"],
-      githubUrl: "https://github.com/username/fitness-app",
+      organization: "Oakland Youth Foundation",
+      duration: "June 2020 - August 2021",
+      teamSize: "Program for 30 youth, staff of 8",
+      technologies: ["Curriculum Development", "Youth Mentorship", "Program Management", "Educational Leadership", "Community Building"],
       features: [
-        "Workout routines",
-        "Nutrition logging",
-        "Progress charts",
-        "Goal setting",
-        "Social sharing"
+        "95% program completion rate among at-risk youth participants",
+        "Designed leadership curriculum adopted by 3 other organizations",
+        "Secured $25,000 in additional funding through grant writing",
+        "Established alumni network with 90% ongoing engagement",
+        "Created partnerships with local high schools for continued support"
       ]
     }
   ];
@@ -93,7 +98,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
   return (
     <div className="p-4">
       <h2 className="text-xl md:text-3xl font-pixel text-retro-purple mb-6">
-        <span className="text-retro-terminal-green">&gt;</span> LEADERSHIP POSITIONS
+        <span className="text-retro-terminal-green">&gt;</span> LEADERSHIP EXPERIENCES
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { FolderGit2, Github, Globe } from 'lucide-react';
+import { FolderGit2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Coin from '@/components/Coin';
 import { Project } from './ProjectTypes';
@@ -34,18 +34,29 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
       )}
       
-      <div className="h-40 bg-retro-dark-purple mb-4 flex items-center justify-center overflow-hidden rounded-lg">
-        <FolderGit2 size={64} className="text-retro-purple opacity-50" />
+      <div className="h-32 bg-retro-dark-purple mb-4 flex items-center justify-center overflow-hidden rounded-lg">
+        <FolderGit2 size={48} className="text-retro-purple opacity-50" />
       </div>
       
       <h3 className="text-retro-terminal-green font-pixel text-lg mb-2">{project.title}</h3>
-      <p className="text-retro-terminal-green font-mono text-sm mb-4 h-12 overflow-hidden">
+      
+      {project.organization && (
+        <p className="text-retro-pixel-yellow font-mono text-sm mb-2">
+          {project.organization}
+        </p>
+      )}
+      
+      {project.duration && (
+        <p className="text-retro-purple font-mono text-xs mb-3">
+          {project.duration}
+        </p>
+      )}
+      
+      <p className="text-retro-terminal-green font-mono text-sm mb-4 flex-grow">
         {project.description}
       </p>
       
-      
-      
-      <div className="flex justify-between items-center mt-auto">
+      <div className="flex justify-center mt-auto">
         <Button 
           variant="outline" 
           size="sm" 
@@ -57,36 +68,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         >
           VIEW DETAILS
         </Button>
-        
-        <div className="flex space-x-2">
-          {project.githubUrl && (
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="text-retro-terminal-green hover:text-retro-purple"
-              onClick={(e) => {
-                e.stopPropagation();
-                window.open(project.githubUrl, '_blank');
-              }}
-            >
-              <Github size={18} />
-            </Button>
-          )}
-          
-          {project.liveUrl && (
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="text-retro-terminal-green hover:text-retro-purple"
-              onClick={(e) => {
-                e.stopPropagation();
-                window.open(project.liveUrl, '_blank');
-              }}
-            >
-              <Globe size={18} />
-            </Button>
-          )}
-        </div>
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { FolderGit2, Github, ExternalLink } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { FolderGit2 } from 'lucide-react';
 import Coin from '@/components/Coin';
 import { Project } from './ProjectTypes';
 import { 
@@ -37,18 +36,42 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({
       
       <DialogHeader>
         <DialogTitle className="text-retro-terminal-green font-pixel text-xl">{project.title}</DialogTitle>
-        <DialogDescription className="sr-only">Project details for {project.title}</DialogDescription>
+        <DialogDescription className="sr-only">Leadership experience details for {project.title}</DialogDescription>
       </DialogHeader>
       
       <div className="h-48 bg-retro-terminal-black mb-4 flex items-center justify-center overflow-hidden rounded-lg">
         <FolderGit2 size={80} className="text-retro-purple opacity-50" />
       </div>
       
-      <p className="text-retro-terminal-green font-mono mb-4">{project.description}</p>
+      {project.organization && (
+        <div className="mb-4">
+          <h4 className="text-retro-pixel-yellow font-pixel text-sm mb-1">ORGANIZATION</h4>
+          <p className="text-retro-terminal-green font-mono">{project.organization}</p>
+        </div>
+      )}
+      
+      {project.duration && (
+        <div className="mb-4">
+          <h4 className="text-retro-pixel-green font-pixel text-sm mb-1">DURATION</h4>
+          <p className="text-retro-terminal-green font-mono">{project.duration}</p>
+        </div>
+      )}
+      
+      {project.teamSize && (
+        <div className="mb-4">
+          <h4 className="text-retro-pixel-yellow font-pixel text-sm mb-1">TEAM SIZE</h4>
+          <p className="text-retro-terminal-green font-mono">{project.teamSize}</p>
+        </div>
+      )}
+      
+      <div className="mb-4">
+        <h4 className="text-retro-pixel-green font-pixel text-sm mb-2">DESCRIPTION</h4>
+        <p className="text-retro-terminal-green font-mono leading-relaxed">{project.description}</p>
+      </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div>
-          <h4 className="text-retro-pixel-yellow font-pixel text-sm mb-2">KEY FEATURES</h4>
+          <h4 className="text-retro-pixel-yellow font-pixel text-sm mb-2">KEY ACHIEVEMENTS</h4>
           <ul className="list-disc list-inside text-retro-terminal-green font-mono">
             {project.features.map((feature, i) => (
               <li key={i} className="mb-1">{feature}</li>
@@ -57,7 +80,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({
         </div>
         
         <div>
-          <h4 className="text-retro-pixel-green font-pixel text-sm mb-2">TECHNOLOGIES</h4>
+          <h4 className="text-retro-pixel-green font-pixel text-sm mb-2">SKILLS DEVELOPED</h4>
           <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech, i) => (
               <span 
@@ -69,32 +92,6 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({
             ))}
           </div>
         </div>
-      </div>
-      
-      <div className="flex justify-center space-x-4">
-        {project.githubUrl && (
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="text-xs border-retro-purple text-retro-purple hover:bg-retro-purple hover:text-retro-dark-purple font-pixel flex items-center"
-            onClick={() => window.open(project.githubUrl, '_blank')}
-          >
-            <Github size={16} className="mr-2" />
-            VIEW CODE
-          </Button>
-        )}
-        
-        {project.liveUrl && (
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="text-xs border-retro-purple text-retro-purple hover:bg-retro-purple hover:text-retro-dark-purple font-pixel flex items-center"
-            onClick={() => window.open(project.liveUrl, '_blank')}
-          >
-            <ExternalLink size={16} className="mr-2" />
-            LIVE DEMO
-          </Button>
-        )}
       </div>
     </DialogContent>
   );
