@@ -5,7 +5,10 @@ import Coin from '@/components/Coin';
 import { Project } from './ProjectTypes';
 import { 
   DialogContent,
+  DialogTitle,
 } from '@/components/ui/dialog';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ProjectDetailsProps {
   project: Project;
@@ -18,8 +21,10 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({
   onCollectCoin,
   coins = {}
 }) => {
-  return (
-    <DialogContent className="bg-retro-dark-purple border-2 border-retro-purple rounded-lg pixel-corners p-6 max-w-2xl w-full">
+  const isMobile = useIsMobile();
+
+  const content = (
+    <>
       {project.id === 3 && onCollectCoin && (
         <div className="absolute top-2 right-12 opacity-0 hover:opacity-100 coin-hidden transition-opacity duration-300">
           <Coin 
@@ -31,7 +36,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({
         </div>
       )}
       
-      <h2 className="text-retro-terminal-green font-pixel text-xl mb-4">{project.title}</h2>
+      <DialogTitle className="text-retro-terminal-green font-pixel text-xl mb-4">{project.title}</DialogTitle>
       
       <div className="h-48 bg-retro-terminal-black mb-4 flex items-center justify-center overflow-hidden rounded-lg">
         <FolderGit2 size={80} className="text-retro-purple opacity-50" />
@@ -77,6 +82,18 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({
           </div>
         </div>
       </div>
+    </>
+  );
+
+  return (
+    <DialogContent className="bg-retro-dark-purple border-2 border-retro-purple rounded-lg pixel-corners p-6 max-w-2xl w-full">
+      {isMobile ? (
+        <ScrollArea className="h-[70vh] pr-4">
+          {content}
+        </ScrollArea>
+      ) : (
+        content
+      )}
     </DialogContent>
   );
 };
