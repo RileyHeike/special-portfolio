@@ -7,7 +7,7 @@ import {
   DialogContent,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ProjectDetailsProps {
@@ -90,6 +90,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({
       {isMobile ? (
         <ScrollArea className="h-[70vh] pr-4">
           {content}
+          <ScrollBar orientation="vertical" />
         </ScrollArea>
       ) : (
         content

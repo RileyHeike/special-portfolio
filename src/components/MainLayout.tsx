@@ -53,8 +53,41 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     };
   }, []);
 
+  const playSound = (type: 'click' | 'coin' | 'success') => {
+    if (!isSoundOn) return;
+    
+    // Create simple beep sounds using Web Audio API
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    // Different frequencies for different sound types
+    switch (type) {
+      case 'click':
+        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+        break;
+      case 'coin':
+        oscillator.frequency.setValueAtTime(1200, audioContext.currentTime);
+        break;
+      case 'success':
+        oscillator.frequency.setValueAtTime(1500, audioContext.currentTime);
+        break;
+    }
+    
+    oscillator.type = 'square';
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.1);
+  };
+
   const toggleSound = () => {
     setIsSoundOn(!isSoundOn);
+    playSound('click');
     toast({
       title: isSoundOn ? "Sound OFF" : "Sound ON",
       description: isSoundOn ? "Game sound effects disabled" : "Game sound effects enabled",
@@ -63,11 +96,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   };
 
   const handleHeaderClick = () => {
+    playSound('click');
     setHeaderClickCount(prev => prev + 1);
     
     // Easter egg: Click header 5 times
     if (headerClickCount === 4 && onCollectCoin) {
       onCollectCoin('header-easter-egg', 100);
+      playSound('success');
       toast({
         title: "SECRET FOUND!",
         description: "You found a hidden easter egg! +100 points!",
@@ -77,11 +112,16 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     }
   };
 
+  const handleNavClick = (section: string) => {
+    playSound('click');
+    setActiveSection(section);
+  };
+
   const navItems = [
     { id: 'home', label: 'HOME', icon: <Home size={16} /> },
     { id: 'education', label: 'EDUCATION', icon: <GraduationCap size={16} /> },
     { id: 'experience', label: 'EXPERIENCE', icon: <Briefcase size={16} /> },
-    { id: 'projects', label: 'PROJECTS', icon: <FolderGit2 size={16} /> },
+    { id: 'projects', label: 'LEADERSHIP', icon: <FolderGit2 size={16} /> },
     { id: 'about', label: 'ABOUT ME', icon: <User size={16} /> },
   ];
 
@@ -138,7 +178,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
                   'text-retro-terminal-green border-b-2 border-retro-terminal-green' : 
                   'text-retro-purple hover:text-retro-terminal-green'
                 }`}
-                onClick={() => setActiveSection(item.id)}
+                onClick={() => handleNavClick(item.id)}
               >
                 {item.icon}
                 <span>{item.label}</span>
