@@ -5,9 +5,6 @@ import Coin from '@/components/Coin';
 import { Project } from './ProjectTypes';
 import { 
   DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
 } from '@/components/ui/dialog';
 
 interface ProjectDetailsProps {
@@ -34,33 +31,20 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({
         </div>
       )}
       
-      <DialogHeader>
-        <DialogTitle className="text-retro-terminal-green font-pixel text-xl">{project.title}</DialogTitle>
-        <DialogDescription className="sr-only">Leadership experience details for {project.title}</DialogDescription>
-      </DialogHeader>
+      <h2 className="text-retro-terminal-green font-pixel text-xl mb-4">{project.title}</h2>
       
       <div className="h-48 bg-retro-terminal-black mb-4 flex items-center justify-center overflow-hidden rounded-lg">
         <FolderGit2 size={80} className="text-retro-purple opacity-50" />
       </div>
       
-      {project.organization && (
+      {(project.organization || project.duration) && (
         <div className="mb-4">
           <h4 className="text-retro-pixel-yellow font-pixel text-sm mb-1">ORGANIZATION</h4>
-          <p className="text-retro-terminal-green font-mono">{project.organization}</p>
-        </div>
-      )}
-      
-      {project.duration && (
-        <div className="mb-4">
-          <h4 className="text-retro-pixel-green font-pixel text-sm mb-1">DURATION</h4>
-          <p className="text-retro-terminal-green font-mono">{project.duration}</p>
-        </div>
-      )}
-      
-      {project.teamSize && (
-        <div className="mb-4">
-          <h4 className="text-retro-pixel-yellow font-pixel text-sm mb-1">TEAM SIZE</h4>
-          <p className="text-retro-terminal-green font-mono">{project.teamSize}</p>
+          <p className="text-retro-terminal-green font-mono">
+            {project.organization}
+            {project.organization && project.duration && ' • '}
+            {project.duration}
+          </p>
         </div>
       )}
       
