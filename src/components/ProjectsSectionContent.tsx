@@ -19,7 +19,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
   const projects: Project[] = [
     {
       id: 1,
-      title: "E-commerce Platform",
+      title: "Project Manager",
       description: "A full-featured e-commerce platform with product listings, cart functionality, and secure checkout.",
       image: "https://placeholder.svg",
       technologies: ["React", "Node.js", "MongoDB", "Stripe", "Redux"],
@@ -93,7 +93,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
   return (
     <div className="p-4">
       <h2 className="text-xl md:text-3xl font-pixel text-retro-purple mb-6">
-        <span className="text-retro-terminal-green">&gt;</span> PROJECT INVENTORY
+        <span className="text-retro-terminal-green">&gt;</span> LEADERSHIP POSITIONS
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

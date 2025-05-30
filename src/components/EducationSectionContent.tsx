@@ -11,36 +11,31 @@ import {
 const EducationSectionContent: React.FC = () => {
   const education = [
     {
-      degree: "Master of Computer Science",
-      institution: "University of Technology",
-      location: "Tech City",
-      period: "2018 - 2020",
-      description: "Specialized in Artificial Intelligence and Machine Learning. Completed thesis on Neural Networks.",
-      achievements: ["3.9 GPA", "President's Honor List", "Algorithms Competition Winner"],
-      skills: ["Machine Learning", "Neural Networks", "Algorithm Design"],
+      degree: "Finance and Computer Science",
+      institution: "Santa Clara University",
+      location: "Santa Clara, CA",
+      period: "2022 - 2026",
+      description: "Computer Science and Finance double major with a Math minor.",
+      activities: ["Alpha Kappa Psi", "Taiwanese Student Association", "KSCU", "Theta Tau", "SCU Imaginarium"],
+      skills: ["Python", "C++", "Data Structures", "Algorithms", "Machine Learning", "Finance Fundamentals"],
       courses: [
-        "Advanced Machine Learning",
-        "Neural Network Architectures",
-        "Natural Language Processing",
-        "Computer Vision Systems",
-        "Data Mining & Analysis"
+        "Advanced Programming",
+        "Data Structures & Algorithms",
+        "Object Oriented Programming",
+        "Applied Valuation for M&A",
+        "Financial Modeling",
+        "Corporate Banking",
       ]
     },
     {
-      degree: "Bachelor of Science in Computer Science",
-      institution: "State University",
-      location: "Innovation Valley",
-      period: "2014 - 2018",
-      description: "Focused on Software Engineering and Data Structures. Participated in multiple hackathons.",
-      achievements: ["3.8 GPA", "Dean's List", "Best Project Award"],
-      skills: ["Java", "Python", "Data Structures", "Algorithms"],
-      courses: [
-        "Data Structures & Algorithms",
-        "Object-Oriented Programming",
-        "Database Systems",
-        "Web Development",
-        "Computer Networks"
-      ]
+      degree: "High School Diploma",
+      institution: "Middlesex County Academy for Allied Health & Biomedical Sciences",
+      location: "New Jersey",
+      period: "2018 - 2022",
+      description: "Clinical and Biomedical Sciences program with a focus on Computer Science.",
+      activities: ["Varsity Basketball Captain"],
+      skills: ["Clinical Research", "Biomedical Data Analysis", "Programming Fundamentals"],
+      courses: ["Capstone Project: Correlation of Sedentary Electronic Device Usage with Joint ROM"]
     }
   ];
 
@@ -89,10 +84,10 @@ const EducationSectionContent: React.FC = () => {
                 <AccordionContent className="pt-4 space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <h4 className="text-retro-pixel-yellow font-pixel text-sm mb-2">ACHIEVEMENTS</h4>
+                      <h4 className="text-retro-pixel-yellow font-pixel text-sm mb-2">INVOLVEMENTS</h4>
                       <ul className="list-disc list-inside text-retro-terminal-green font-mono">
-                        {edu.achievements.map((achievement, i) => (
-                          <li key={i} className="mb-1">{achievement}</li>
+                        {edu.activities.map((involvement, i) => (
+                          <li key={i} className="mb-1">{involvement}</li>
                         ))}
                       </ul>
                     </div>

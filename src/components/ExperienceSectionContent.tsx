@@ -5,30 +5,29 @@ import { Briefcase, Calendar, MapPin, Award } from 'lucide-react';
 const ExperienceSectionContent: React.FC = () => {
   const experiences = [
     {
-      title: "Senior Frontend Developer",
-      company: "Tech Innovations Inc.",
-      location: "Silicon Valley",
-      period: "2020 - Present",
-      description: "Leading a team of 5 developers on mission-critical web applications. Implementing modern React architecture and performance optimizations.",
+      title: "Embark Scholar Intern (IT/Engineering)",
+      company: "KPMG",
+      location: "New York City, NY",
+      period: "Summer 2024",
+      description: "8-week rotation through Advisory, Tax, and Audit practices. Focused and worked on engagements in technology and risk groups.",
       highlights: [
-        "Reduced application load time by 40%",
-        "Implemented CI/CD pipeline",
-        "Developed component library used across multiple projects"
+        "Applied Go-to-Market strategies and analyzed potential risk and compliance projects of NYC government.",
+        "Learned and utilized Alteryx and PowerBi to build workflow processes to streamline data cleansing and analysis.",
+        "Tested controls and technology processes to develop SOC 1&2 reportings.",
+        "Completed a CAPSTONE project with 6 other interns on reducing the company's carbon emissions."
       ],
-      technologies: ["React", "TypeScript", "Redux", "Next.js", "GraphQL", "TailwindCSS"]
+      technologies: ["Alteryx", "Microsoft Power BI", "Data Analytics"]
     },
     {
-      title: "Frontend Developer",
-      company: "Digital Solutions Ltd.",
-      location: "Tech Hub City",
-      period: "2018 - 2020",
-      description: "Developed responsive web applications for enterprise clients. Collaborated with UX/UI designers to implement pixel-perfect interfaces.",
+      title: "Goldman Sachs Virtual Insight Program",
+      company: "Goldman Sachs",
+      location: "Remote",
+      period: "May - July 2024",
+      description: "",
       highlights: [
-        "Built 3 major client-facing applications",
-        "Improved accessibility compliance across all products",
-        "Mentored junior developers"
+
       ],
-      technologies: ["JavaScript", "Vue.js", "SCSS", "Jest", "Webpack", "REST APIs"]
+      technologies: []
     },
     {
       title: "Web Developer Intern",
@@ -94,7 +93,7 @@ const ExperienceSectionContent: React.FC = () => {
               </div>
               
               <div>
-                <h4 className="text-retro-pixel-green font-pixel text-sm mb-2">TECH SKILLS</h4>
+                <h4 className="text-retro-pixel-green font-pixel text-sm mb-2">SKILLS</h4>
                 <div className="flex flex-wrap gap-2">
                   {exp.technologies.map((tech, i) => (
                     <span 

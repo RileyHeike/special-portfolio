@@ -43,21 +43,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         {project.description}
       </p>
       
-      <div className="flex flex-wrap gap-2 mb-4">
-        {project.technologies.slice(0, 3).map((tech, i) => (
-          <span 
-            key={i} 
-            className="bg-retro-dark-purple text-retro-terminal-green px-2 py-1 rounded font-mono text-xs"
-          >
-            {tech}
-          </span>
-        ))}
-        {project.technologies.length > 3 && (
-          <span className="bg-retro-dark-purple text-retro-terminal-green px-2 py-1 rounded font-mono text-xs">
-            +{project.technologies.length - 3}
-          </span>
-        )}
-      </div>
+      
       
       <div className="flex justify-between items-center mt-auto">
         <Button 

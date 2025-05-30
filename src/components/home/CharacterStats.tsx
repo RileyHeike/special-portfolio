@@ -37,7 +37,7 @@ const CharacterStats: React.FC<CharacterStatsProps> = ({ stats, className = '' }
               </div>
             </HoverCardTrigger>
             <HoverCardContent className="w-64 bg-retro-terminal-black border border-retro-purple text-retro-terminal-green p-4">
-              <p className="text-xs">This character has {value}% {stat}.</p>
+              <p className="text-xs">This character has {value} {stat}.</p>
             </HoverCardContent>
           </HoverCard>
         ))}

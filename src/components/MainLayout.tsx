@@ -95,7 +95,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           <div className="flex items-center space-x-2">
             <Gamepad2 className="text-retro-purple" size={24} />
             <h1 className="text-lg md:text-2xl font-pixel text-retro-purple tracking-wider">
-              {isVerySmallScreen ? "RETRO" : "RETRO PORTFOLIO"}
+              {isVerySmallScreen ? "KRISTY" : "KRISTY CHEREATH"}
             </h1>
           </div>
           <div className="flex items-center space-x-2">
@@ -167,7 +167,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           )}
         </div>
         
-        <p>&copy; 2023 RETRO PORTFOLIO | SEARCH FOR HIDDEN COINS</p>
+        <p>&copy; 2025 KRISTY CHEREATH</p>
       </footer>
 
       <div className="scanline"></div>

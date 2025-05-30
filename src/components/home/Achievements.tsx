@@ -24,8 +24,8 @@ const Achievements: React.FC<AchievementsProps> = ({
 }) => {
   return (
     <div className={`bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners hover:border-retro-pixel-yellow transition-colors duration-300 ${className}`}>
-      <h3 className="text-retro-terminal-green font-pixel text-sm mb-2">ACHIEVEMENTS</h3>
-      <p className="text-xs text-retro-terminal-green mb-4">Explore the portfolio to collect points and unlock achievements. Find hidden coins, discover secrets, and try special key combinations!</p>
+      <h3 className="text-retro-terminal-green font-pixel text-sm mb-4">ACHIEVEMENTS</h3>
+      <p className="text-xs text-retro-terminal-green mb-10">Explore the portfolio to collect points and unlock achievements. Find hidden coins, discover secrets, and try special key combinations!</p>
       <div className="flex justify-around">
         {achievements.slice(0, 5).map((achievement, index) => (
           <HoverCard key={achievement.id} openDelay={200} closeDelay={100}>

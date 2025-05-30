@@ -53,7 +53,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
     unlocked: a.scoreThreshold <= score
   })));
   
-  const fullText = "WELCOME TO MY RETRO PORTFOLIO GAME! EXPLORE THE DIFFERENT SECTIONS TO LEARN MORE ABOUT ME AND MY WORK. CLICK ON THE SPRITE TO INTERACT.";
+  const fullText = "WELCOME TO MY PERSONAL PORTFOLIO! EXPLORE THE DIFFERENT SECTIONS TO LEARN MORE ABOUT ME AND MY WORK. FIND HIDDEN COINS AND EASTER EGGS TO IMPROVE YOUR SCORE.";
   
   // Update achievements based on score
   useEffect(() => {
@@ -100,10 +100,10 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
           
           <StatsPanel title="QUICK STATS" color="green" onClick={onInteraction}>
             <div className="grid grid-cols-2 gap-y-2 text-xs text-retro-terminal-green">
+              <div>LEVEL: <span className="text-retro-purple">Collegiate</span></div>
               <div>CLASS: <span className="text-retro-purple">Senior</span></div>
-              <div>LEVEL: <span className="text-retro-purple">Senior</span></div>
-              <div>SPECIALTY: <span className="text-retro-purple">Frontend</span></div>
-              <div>ALIGNMENT: <span className="text-retro-purple">Chaotic Good</span></div>
+              <div>SPECIALTY: <span className="text-retro-purple">Finance</span></div>
+              <div>ALIGNMENT: <span className="text-retro-purple">Chaotic Neutral</span></div>
             </div>
           </StatsPanel>
           
