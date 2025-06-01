@@ -19,70 +19,62 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
   const projects: Project[] = [
     {
       id: 1,
-      title: "Student Body President",
-      description: "Led a diverse student body of 15,000+ students, implementing campus-wide initiatives focused on mental health awareness, sustainability programs, and academic support services. Successfully advocated for policy changes that improved campus dining options and extended library hours during finals week.",
+      title: "Project Manager - SCU Imaginarium",
+      description: "Co-led an interdisciplinary research team studying the cognitive effects of short-form and split-screen video content on learning, attention, and information retention.",
       image: "https://placeholder.svg",
-      organization: "University of California, Berkeley",
-      duration: "September 2022 - May 2023",
+      organization: "Santa Clara University",
+      duration: "January 2025 - Present",
       teamSize: "Executive team of 12 members",
-      technologies: ["Public Speaking", "Policy Development", "Budget Management", "Team Leadership", "Crisis Management"],
+      technologies: ["Project Management", "Data Analysis"],
       features: [
-        "Increased student engagement by 40% through innovative programming",
-        "Secured $50,000 additional funding for student mental health resources",
-        "Implemented campus sustainability initiative reducing waste by 25%",
-        "Established mentorship program connecting upperclassmen with freshmen",
-        "Led successful campaign for extended campus facility hours"
+        "Oversaw the development of a custom website for experimental trials",
+        "Managed participant/researcher coordination, and directed data collection and data analysis",
+        "Streamlined project timelines and operations to consistently meet critical research milestones",
       ]
     },
     {
       id: 2,
-      title: "Team Captain - Varsity Soccer",
-      description: "Captained a championship-winning varsity soccer team, fostering team unity and driving performance improvements through strategic leadership and mentorship. Developed training programs that enhanced team performance and maintained high academic standards among team members.",
+      title: "Vice President",
+      description: "Established the first Taiwanese community group at SCU, and connected with Taiwanese clubs at different schools for collaborative events",
       image: "https://placeholder.svg",
-      organization: "Berkeley High School",
-      duration: "August 2021 - June 2022",
-      teamSize: "23 team members",
-      technologies: ["Athletic Leadership", "Performance Coaching", "Conflict Resolution", "Strategic Planning", "Motivation"],
+      organization: "SCU Taiwanese Student Association",
+      duration: "May 2023 - June 2024",
+      teamSize: "120 members",
+      technologies: ["Community Building", "Event Planning", "Leadership", "Team Management"],
       features: [
-        "Led team to regional championship victory",
-        "Improved team GPA from 3.2 to 3.7 through academic accountability program",
-        "Reduced team conflicts by 60% through effective communication strategies",
-        "Implemented peer mentoring system for younger players",
-        "Organized community service initiatives increasing team's local impact"
+        "Helped organize events for 120+ members to promote Taiwanese culture and community",
+        "Increased event attendance by 50% through targeted outreach and engagement strategies",
+        "Created a digital resource hub for members to access cultural materials and event information"
       ]
     },
     {
       id: 3,
-      title: "Volunteer Coordinator",
-      description: "Organized and managed volunteer programs for a local non-profit, coordinating efforts across multiple community initiatives. Developed recruitment strategies and training programs that significantly increased volunteer retention and program effectiveness.",
+      title: "Visitor Services Ambassador",
+      description: "Supervise galleries and create a welcoming environment for visitors ",
       image: "https://placeholder.svg",
-      organization: "Bay Area Community Center",
-      duration: "January 2021 - August 2022",
-      teamSize: "200+ volunteers managed",
-      technologies: ["Volunteer Management", "Program Development", "Community Outreach", "Training Design", "Event Planning"],
+      organization: "de Saisset Museum, Santa Clara University",
+      duration: "September 2023 - Present",
+      teamSize: "",
+      technologies: ["Customer Service", "Visitor Engagement", "Event Support", "Training Development"],
       features: [
-        "Increased volunteer retention rate from 45% to 78%",
-        "Coordinated 15+ community events serving 500+ families",
-        "Developed comprehensive volunteer training program",
-        "Established partnerships with 8 local schools and organizations",
-        "Managed volunteer database and scheduling system for 200+ volunteers"
+        "Participated in varoius projects ranging from art installation to administrative support",
+        "Developed training materials that improved volunteer retention by 20%",
+        "Implemented a new visitor feedback system that increased satisfaction ratings by 15%",
       ]
     },
     {
       id: 4,
-      title: "Youth Leadership Program Director",
-      description: "Directed a summer leadership program for at-risk youth, designing curriculum and activities that developed leadership skills, built confidence, and provided mentorship opportunities. Successfully graduated 95% of participants who went on to leadership roles in their schools.",
+      title: "Interview Co-Chair",
+      description: "Co-direct and manage interview process for an on-campus professional business fraternity, including scheduling, training interviewers, and providing feedback to candidates.",
       image: "https://placeholder.svg",
-      organization: "Oakland Youth Foundation",
-      duration: "June 2020 - August 2021",
-      teamSize: "Program for 30 youth, staff of 8",
-      technologies: ["Curriculum Development", "Youth Mentorship", "Program Management", "Educational Leadership", "Community Building"],
+      organization: "Alpha Kappa Psi, Santa Clara University",
+      duration: "March 2025 - Present",
+      teamSize: "2 co-chairs, 20 interviewers",
+      technologies: ["Interview Management", "Team Leadership", "Feedback Systems", "Training Development"],
       features: [
-        "95% program completion rate among at-risk youth participants",
-        "Designed leadership curriculum adopted by 3 other organizations",
-        "Secured $25,000 in additional funding through grant writing",
-        "Established alumni network with 90% ongoing engagement",
-        "Created partnerships with local high schools for continued support"
+        "Created over 100+ interview questions and evaluation rubrics to standardize the interview process",
+        "Trained and managed a team over 20 interviewers to ensure consistent and fair evaluations",
+        "Provided constructive feedback to candidates, helping them improve their interview skills and confidence"
       ]
     }
   ];

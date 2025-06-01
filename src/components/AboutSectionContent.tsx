@@ -1,44 +1,43 @@
 
 import React from 'react';
-import { Heart, Star, Coffee, Music, Gamepad, Book } from 'lucide-react';
+import { Heart, Star, Coffee, Music, Gamepad, Book, Mountain } from 'lucide-react';
 import InterestsPanel from './about/InterestsPanel';
 import SkillBar, { Skill } from './about/SkillBar';
 import { Interest } from './about/InterestItem';
 
 const AboutSectionContent: React.FC = () => {
   const personalInfo = {
-    bio: "Hi there! I'm a passionate web developer with a love for creating engaging user experiences. When I'm not coding, you can find me playing retro games, hiking in nature, or experimenting with new recipes.",
+    bio: "Hi there! I'm glad you found your way to my portfolio. As a Finance/CS double-major, I am interested in data, the intersection between technology and the business world, and financial services. When I'm not coding, you can find me exploring the outdoors, reading a good book, or enjoying a cup of coffee. Feel free to reach out to me at kchereath@scu.edu or connect with me on LinkedIn at https://www.linkedin.com/in/kristy-chereath/",
     interests: [
       { 
-        icon: <Gamepad size={16} />, 
-        text: "Retro Gaming",
-        description: "I collect and play classic games from the 80s and 90s. My favorites include Super Metroid, Chrono Trigger, and the original Legend of Zelda. I even maintain a small collection of working retro consoles!",
-        fact: "I once participated in a 24-hour retro gaming marathon for charity."
+        icon: <Mountain size={16} />, 
+        text: "Outdoors",
+        description: "I love to hike, backpack and explore the great outdoors. Whether it's a weekend trip to the mountains or a day hike in a local park, I find peace and inspiration in nature.",
+        fact: "I spent a weekend in the Italian Dolomites last fall!"
       },
       { 
         icon: <Book size={16} />, 
-        text: "Sci-Fi Novels",
-        description: "I'm an avid reader of science fiction, especially works by Asimov, Le Guin, and Gibson. The blend of futuristic technology and human experience fascinates me.",
-        fact: "I have a first edition of Neuromancer in my book collection."
+        text: "Reading",
+        description: "I like to wind down by reading, preferably in a nice chair in the sun. I enjoy a wide range of genres, and I'm always looking for new recommendations.",
+        fact: "My favorite book is 'The Alchemist' by Paulo Coelho, which I find incredibly inspiring."
       },
       { 
         icon: <Music size={16} />, 
-        text: "Synth Music",
-        description: "I'm passionate about synthesizer music and electronic production. I even create my own tracks using a modest home studio setup with analog and digital synthesizers.",
-        fact: "I released a small EP of synthwave tracks on Bandcamp last year."
+        text: "Music",
+        description: "I have a radio show on KSCU radio station, where I play a mix of indie, classic rock, and country music. I love discovering new artists and sharing my favorites with others.",
+        fact: "My top artist on Spotify last year was Taylor Swift."
       },
       { 
         icon: <Coffee size={16} />, 
-        text: "Coffee Brewing",
-        description: "I'm a coffee enthusiast who enjoys experimenting with different brewing methods. From pour-over to AeroPress, I'm always looking to perfect the extraction.",
-        fact: "I roast small batches of coffee beans at home using a modified popcorn maker."
+        text: "Coffee",
+        description: "If I make it out of bed in the morning, it's not without a cup of coffee. I enjoy trying different cafes, and always love a good pour-over.",
+        fact: "I used to have 3 shots of espresso every morning, but now I prefer a single pour-over to start my day."
       }
     ] as Interest[],
     funFacts: [
-      "I've beaten every Final Fantasy game",
-      "I can solve a Rubik's cube in under 2 minutes",
-      "I collect vintage gaming consoles",
-      "I once wrote a game in BASIC on an Apple II"
+      "I have a dog named Lulu, who is my favorite thing in the world",
+      "I have a collection of over 70 CDs",
+      "I can play the piano and the harmonica",
     ],
     skills: {
       technical: [
