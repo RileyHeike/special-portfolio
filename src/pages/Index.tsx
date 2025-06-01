@@ -15,7 +15,30 @@ const Index = () => {
   const [score, setScore] = useState(0);
   const [coins, setCoins] = useState<Record<string, boolean>>({});
   const [secretCode, setSecretCode] = useState('');
+  const [isSoundOn, setIsSoundOn] = useState(false);
   const { toast } = useToast();
+
+  const playScoreSound = () => {
+    if (!isSoundOn) return;
+    
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    // Higher pitched sound for score increase
+    oscillator.frequency.setValueAtTime(1000, audioContext.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(1500, audioContext.currentTime + 0.2);
+    
+    oscillator.type = 'sine';
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.3);
+  };
 
   const handleLoaderComplete = () => {
     setLoading(false);
@@ -49,6 +72,7 @@ const Index = () => {
         if (konamiIndex === konamiCode.length) {
           // Konami code completed!
           setScore(prev => prev + 300);
+          playScoreSound();
           toast({
             title: "SECRET CODE!",
             description: "You found the Konami code! +300 points!",
@@ -90,12 +114,13 @@ const Index = () => {
       document.body.classList.remove('crt');
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [toast]);
+  }, [toast, isSoundOn]);
 
   const handleCollectCoin = (coinId: string, value: number = 50) => {
     if (!coins[coinId]) {
       setCoins(prev => ({ ...prev, [coinId]: true }));
       setScore(prev => prev + value);
+      playScoreSound();
       
       // Check for milestones
       const newScore = score + value;
@@ -137,6 +162,8 @@ const Index = () => {
           score={score}
           onCollectCoin={handleCollectCoin}
           coins={coins}
+          isSoundOn={isSoundOn}
+          setIsSoundOn={setIsSoundOn}
         >
           {renderContent()}
         </MainLayout>

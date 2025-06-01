@@ -1,4 +1,3 @@
-
 import React, { useState, ReactNode, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
@@ -23,6 +22,8 @@ interface MainLayoutProps {
   score?: number;
   onCollectCoin?: (id: string, value: number) => void;
   coins?: Record<string, boolean>;
+  isSoundOn?: boolean;
+  setIsSoundOn?: (value: boolean) => void;
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ 
@@ -31,10 +32,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   children,
   score = 0,
   onCollectCoin,
-  coins = {}
+  coins = {},
+  isSoundOn = false,
+  setIsSoundOn
 }) => {
   const { toast } = useToast();
-  const [isSoundOn, setIsSoundOn] = useState(false);
   const [headerClickCount, setHeaderClickCount] = useState(0);
   const isMobile = useIsMobile();
   const [isVerySmallScreen, setIsVerySmallScreen] = useState(false);
@@ -86,13 +88,15 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   };
 
   const toggleSound = () => {
-    setIsSoundOn(!isSoundOn);
-    playSound('click');
-    toast({
-      title: isSoundOn ? "Sound OFF" : "Sound ON",
-      description: isSoundOn ? "Game sound effects disabled" : "Game sound effects enabled",
-      duration: 1500,
-    });
+    if (setIsSoundOn) {
+      setIsSoundOn(!isSoundOn);
+      playSound('click');
+      toast({
+        title: isSoundOn ? "Sound OFF" : "Sound ON",
+        description: isSoundOn ? "Game sound effects disabled" : "Game sound effects enabled",
+        duration: 1500,
+      });
+    }
   };
 
   const handleHeaderClick = () => {

@@ -3,6 +3,7 @@ import React from 'react';
 import { Heart, Star, Coffee, Music, Gamepad, Book, Mountain } from 'lucide-react';
 import InterestsPanel from './about/InterestsPanel';
 import SkillBar, { Skill } from './about/SkillBar';
+import ConnectPanel from './about/ConnectPanel';
 import { Interest } from './about/InterestItem';
 
 const AboutSectionContent: React.FC = () => {
@@ -40,14 +41,6 @@ const AboutSectionContent: React.FC = () => {
       "I can play the piano and the harmonica",
     ],
     skills: {
-      technical: [
-        { name: "React", level: 95 },
-        { name: "JavaScript", level: 90 },
-        { name: "CSS/SCSS", level: 85 },
-        { name: "TypeScript", level: 80 },
-        { name: "Node.js", level: 75 },
-        { name: "GraphQL", level: 70 }
-      ] as Skill[],
       soft: [
         { name: "Problem Solving", level: 90 },
         { name: "Communication", level: 85 },
@@ -87,18 +80,7 @@ const AboutSectionContent: React.FC = () => {
             </div>
           </div>
           
-          <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners">
-            <h3 className="text-retro-neon-blue font-pixel text-lg mb-3">TECHNICAL SKILLS</h3>
-            <div className="space-y-3">
-              {personalInfo.skills.technical.map((skill, index) => (
-                <SkillBar 
-                  key={index} 
-                  skill={skill} 
-                  colorClass="bg-retro-neon-blue text-retro-neon-blue" 
-                />
-              ))}
-            </div>
-          </div>
+          <ConnectPanel />
         </div>
         
         <div className="md:col-span-1">
