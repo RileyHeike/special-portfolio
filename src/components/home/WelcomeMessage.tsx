@@ -12,8 +12,10 @@ const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
   typingSpeed = 35,
   onClick 
 }) => {
+  // Typewriter animation state
   const [typedText, setTypedText] = useState("");
   
+  // Typewriter effect implementation
   useEffect(() => {
     let currentIndex = 0;
     const typingInterval = setInterval(() => {
@@ -35,6 +37,7 @@ const WelcomeMessage: React.FC<WelcomeMessageProps> = ({
     >
       <p className="font-mono text-retro-terminal-green">
         {typedText}
+        {/* Blinking cursor */}
         <span className="animate-blink inline-block h-4 w-2 ml-1 bg-retro-terminal-green"></span>
       </p>
     </div>

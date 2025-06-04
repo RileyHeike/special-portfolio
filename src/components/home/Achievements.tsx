@@ -24,8 +24,15 @@ const Achievements: React.FC<AchievementsProps> = ({
 }) => {
   return (
     <div className={`bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners hover:border-retro-pixel-yellow transition-colors duration-300 ${className}`}>
+      {/* Achievements header */}
       <h3 className="text-retro-terminal-green font-pixel text-sm mb-4">ACHIEVEMENTS</h3>
-      <p className="text-xs text-retro-terminal-green mb-10">Explore the portfolio to collect points and unlock achievements. Find hidden coins, discover secrets, and try special key combinations!</p>
+      
+      {/* Instructions text */}
+      <p className="text-xs text-retro-terminal-green mb-10">
+        Explore the portfolio to collect points and unlock achievements. Find hidden coins, discover secrets, and try special key combinations!
+      </p>
+      
+      {/* Achievement trophy display */}
       <div className="flex justify-around">
         {achievements.slice(0, 5).map((achievement, index) => (
           <HoverCard key={achievement.id} openDelay={200} closeDelay={100}>
@@ -43,6 +50,7 @@ const Achievements: React.FC<AchievementsProps> = ({
                 />
               </div>
             </HoverCardTrigger>
+            {/* Achievement details tooltip */}
             <HoverCardContent 
               className="w-64 bg-retro-terminal-black border border-retro-purple text-retro-terminal-green p-4" 
               side="top"

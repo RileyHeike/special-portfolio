@@ -8,10 +8,12 @@ interface PixelSpriteProps {
 }
 
 const PixelSprite: React.FC<PixelSpriteProps> = ({ className = '', onClick }) => {
+  // Animation and message state
   const [isAnimating, setIsAnimating] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(0);
   
+  // Sprite dialogue messages
   const messages = [
     "Erm...",
     "Slay Queen!",
@@ -21,24 +23,25 @@ const PixelSprite: React.FC<PixelSpriteProps> = ({ className = '', onClick }) =>
   ];
   
   const handleClick = () => {
+    // Call parent onClick handler
     if (onClick && !isAnimating) {
       onClick();
     }
     
-    // If message is already showing, close it instead of showing a new one
+    // Close popover if already showing
     if (showMessage) {
       setShowMessage(false);
       return;
     }
     
-    // Set animation state
+    // Start bounce animation
     setIsAnimating(true);
     
     // Show message and cycle through messages
     setShowMessage(true);
     setCurrentMessage((prev) => (prev + 1) % messages.length);
     
-    // Reset animation state after animation completes
+    // Reset animation after bounce completes
     setTimeout(() => {
       setIsAnimating(false);
     }, 1000);
@@ -54,7 +57,7 @@ const PixelSprite: React.FC<PixelSpriteProps> = ({ className = '', onClick }) =>
           <img 
             src="/lovable-uploads/cc6a630e-173e-4881-b6b5-37abb23f360b.png" 
             alt="Pixel character" 
-            className="w-48 h-48 object-contain" // Doubled from 24 to 48
+            className="w-48 h-48 object-contain"
           />
         </div>
       </PopoverTrigger>

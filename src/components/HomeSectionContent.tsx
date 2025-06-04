@@ -12,7 +12,7 @@ interface HomeSectionContentProps {
   score?: number;
 }
 
-// Character classes with preset stats
+// Character class definitions with preset stats
 const characterClasses: CharacterClass[] = [
   {
     name: "Warrior",
@@ -36,7 +36,7 @@ const characterClasses: CharacterClass[] = [
   }
 ];
 
-// Achievement definitions with score thresholds
+// Achievement system with score thresholds
 const achievementDefinitions = [
   { id: 1, name: "First Visitor", description: "Visit the portfolio for the first time", scoreThreshold: 0 },
   { id: 2, name: "Explorer", description: "Find your first hidden coin", scoreThreshold: 25 },
@@ -46,16 +46,18 @@ const achievementDefinitions = [
 ];
 
 const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, score = 0 }) => {
+  // Interaction state
   const [hasInteracted, setHasInteracted] = useState(false);
-  const [healthPoints, setHealthPoints] = useState(10); // Max 10 hearts
+  const [healthPoints] = useState(10); // Character health (max 10)
   const [achievements, setAchievements] = useState<Achievement[]>(achievementDefinitions.map(a => ({
     ...a,
     unlocked: a.scoreThreshold <= score
   })));
   
+  // Welcome message text
   const fullText = "WELCOME TO MY PERSONAL PORTFOLIO! EXPLORE THE DIFFERENT SECTIONS TO LEARN MORE ABOUT ME AND MY WORK. FIND HIDDEN COINS AND EASTER EGGS TO IMPROVE YOUR SCORE.";
   
-  // Update achievements based on score
+  // Update achievements when score changes
   useEffect(() => {
     setAchievements(achievementDefinitions.map(a => ({
       ...a,
@@ -63,27 +65,30 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
     })));
   }, [score]);
 
-  // Handle click interactions
+  // Handle sprite click interactions
   const handleSpriteClick = () => {
     if (onInteraction && !hasInteracted) {
       onInteraction();
       setHasInteracted(true);
-      // Reset after a delay to allow multiple interactions
+      // Reset after delay to allow multiple interactions
       setTimeout(() => setHasInteracted(false), 2000);
     }
   };
 
   return (
     <div className="p-4">
+      {/* Section header */}
       <h2 className="text-xl md:text-3xl font-pixel text-retro-purple mb-6">
         <span className="text-retro-terminal-green">&gt;</span> PLAYER ONE READY
       </h2>
       
-      {/* Content area with aligned columns */}
+      {/* Main content grid */}
       <div className="flex flex-col md:flex-row items-stretch justify-between gap-8 flex-grow">
+        {/* Left column - Stats and welcome */}
         <div className="w-full md:w-1/2 flex flex-col space-y-6">
           <WelcomeMessage message={fullText} onClick={onInteraction} />
           
+          {/* Stats grid */}
           <div className="grid grid-cols-2 gap-4">
             <StatsPanel title="SKILL LEVEL" color="amber" onClick={onInteraction}>
               <div className="w-full h-4 bg-retro-dark-purple rounded-sm overflow-hidden">
@@ -98,6 +103,7 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
             </StatsPanel>
           </div>
           
+          {/* Quick stats panel */}
           <StatsPanel title="QUICK STATS" color="green" onClick={onInteraction}>
             <div className="grid grid-cols-2 gap-y-2 text-xs text-retro-terminal-green">
               <div>LEVEL: <span className="text-retro-purple">Collegiate</span></div>
@@ -107,12 +113,14 @@ const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, 
             </div>
           </StatsPanel>
           
+          {/* Achievements section */}
           <Achievements 
             achievements={achievements} 
             score={score} 
           />
         </div>
         
+        {/* Right column - Character panel */}
         <div className="w-full md:w-1/2 flex flex-col h-full">
           <CharacterPanel 
             classes={characterClasses}

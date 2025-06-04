@@ -16,8 +16,10 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
   coins = {},
   isSoundOn = false
 }) => {
+  // Modal state for project details
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   
+  // Modal sound effect
   const playModalSound = () => {
     if (!isSoundOn) return;
     
@@ -28,7 +30,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
     oscillator.connect(gainNode);
     gainNode.connect(audioContext.destination);
     
-    // Modal open sound
+    // Modal open sound effect
     oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
     oscillator.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.3);
     
@@ -40,6 +42,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
     oscillator.stop(audioContext.currentTime + 0.4);
   };
 
+  // Leadership experiences data
   const projects: Project[] = [
     {
       id: 1,
@@ -103,6 +106,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
     }
   ];
   
+  // Project modal handlers
   const openProjectDetails = (project: Project) => {
     playModalSound();
     setSelectedProject(project);
@@ -114,10 +118,12 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
 
   return (
     <div className="p-4">
+      {/* Section header */}
       <h2 className="text-xl md:text-3xl font-pixel text-retro-purple mb-6">
         <span className="text-retro-terminal-green">&gt;</span> LEADERSHIP EXPERIENCES
       </h2>
       
+      {/* Project cards grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((project) => (
           <ProjectCard
@@ -130,6 +136,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
         ))}
       </div>
       
+      {/* Project details modal */}
       <Dialog open={!!selectedProject} onOpenChange={(open) => !open && closeProjectDetails()}>
         {selectedProject && (
           <ProjectDetails

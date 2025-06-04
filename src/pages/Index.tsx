@@ -10,6 +10,7 @@ import AboutSectionContent from '@/components/AboutSectionContent';
 import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
+  // App state
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
   const [score, setScore] = useState(0);
@@ -18,6 +19,7 @@ const Index = () => {
   const [isSoundOn, setIsSoundOn] = useState(false);
   const { toast } = useToast();
 
+  // Sound effect helper
   const playScoreSound = () => {
     if (!isSoundOn) return;
     
@@ -28,7 +30,7 @@ const Index = () => {
     oscillator.connect(gainNode);
     gainNode.connect(audioContext.destination);
     
-    // Higher pitched sound for score increase
+    // Score increase sound effect
     oscillator.frequency.setValueAtTime(1000, audioContext.currentTime);
     oscillator.frequency.exponentialRampToValueAtTime(1500, audioContext.currentTime + 0.2);
     
@@ -40,10 +42,11 @@ const Index = () => {
     oscillator.stop(audioContext.currentTime + 0.3);
   };
 
+  // Loading complete handler
   const handleLoaderComplete = () => {
     setLoading(false);
     
-    // Show welcome toast
+    // Welcome toast notification
     toast({
       title: "GAME LOADED",
       description: "Welcome to my retro portfolio! Find hidden coins to increase your score!",
@@ -51,11 +54,12 @@ const Index = () => {
     });
   };
 
-  // Apply CRT effect to the body
+  // Setup effects and easter eggs
   useEffect(() => {
+    // Apply CRT screen effect
     document.body.classList.add('crt');
     
-    // Easter egg: Konami code detector
+    // Konami code sequence
     const konamiCode = [
       'ArrowUp', 'ArrowUp', 
       'ArrowDown', 'ArrowDown', 
@@ -65,12 +69,13 @@ const Index = () => {
     ];
     let konamiIndex = 0;
     
+    // Keyboard event handler for easter eggs
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Check for Konami code
+      // Konami code detection
       if (e.key === konamiCode[konamiIndex]) {
         konamiIndex++;
         if (konamiIndex === konamiCode.length) {
-          // Konami code completed!
+          // Konami code completed - big score bonus
           setScore(prev => prev + 300);
           playScoreSound();
           toast({
@@ -85,10 +90,10 @@ const Index = () => {
         konamiIndex = 0;
       }
 
-      // Track keys pressed for secret codes
+      // Secret code tracking
       setSecretCode(prev => {
         const newCode = (prev + e.key).slice(-10);
-        // Secret code "showmecoins" - reveals all coin locations temporarily
+        // "showmecoins" reveals all coin locations
         if (newCode.includes("showmecoins")) {
           toast({
             title: "COIN REVEALER!",
@@ -96,7 +101,7 @@ const Index = () => {
             duration: 3000,
           });
           
-          // Show all coins briefly
+          // Temporarily reveal all coins
           document.body.classList.add('reveal-coins');
           setTimeout(() => {
             document.body.classList.remove('reveal-coins');
@@ -110,19 +115,21 @@ const Index = () => {
     
     window.addEventListener('keydown', handleKeyDown);
     
+    // Cleanup
     return () => {
       document.body.classList.remove('crt');
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [toast, isSoundOn]);
 
+  // Coin collection handler
   const handleCollectCoin = (coinId: string, value: number = 50) => {
     if (!coins[coinId]) {
       setCoins(prev => ({ ...prev, [coinId]: true }));
       setScore(prev => prev + value);
       playScoreSound();
       
-      // Check for milestones
+      // Level up notifications
       const newScore = score + value;
       if (newScore >= 100 && Math.floor(newScore / 100) > Math.floor(score / 100)) {
         toast({
@@ -134,6 +141,7 @@ const Index = () => {
     }
   };
 
+  // Section content renderer
   const renderContent = () => {
     switch (activeSection) {
       case 'home':
