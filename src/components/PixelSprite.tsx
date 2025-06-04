@@ -25,6 +25,12 @@ const PixelSprite: React.FC<PixelSpriteProps> = ({ className = '', onClick }) =>
       onClick();
     }
     
+    // If message is already showing, close it instead of showing a new one
+    if (showMessage) {
+      setShowMessage(false);
+      return;
+    }
+    
     // Set animation state
     setIsAnimating(true);
     
