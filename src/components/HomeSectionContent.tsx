@@ -41,8 +41,8 @@ const achievementDefinitions = [
   { id: 1, name: "First Visitor", description: "Visit the portfolio for the first time", scoreThreshold: 0 },
   { id: 2, name: "Explorer", description: "Find your first hidden coin", scoreThreshold: 25 },
   { id: 3, name: "Treasure Hunter", description: "Collect 100 points", scoreThreshold: 100 },
-  { id: 4, name: "Code Master", description: "Collect 250 points", scoreThreshold: 200 },
-  { id: 5, name: "Portfolio Champion", description: "Collect 500 points", scoreThreshold: 500 }
+  { id: 4, name: "Code Master", description: "Collect 300 points", scoreThreshold: 300 },
+  { id: 5, name: "Portfolio Champion", description: "Collect 600 points", scoreThreshold: 600 }
 ];
 
 const HomeSectionContent: React.FC<HomeSectionContentProps> = ({ onInteraction, score = 0 }) => {

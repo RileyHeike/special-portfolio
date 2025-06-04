@@ -13,12 +13,11 @@ const PixelSprite: React.FC<PixelSpriteProps> = ({ className = '', onClick }) =>
   const [currentMessage, setCurrentMessage] = useState(0);
   
   const messages = [
-    "Hello there! Click me again for more messages!",
-    "I'm a pixel sprite! Pretty cool, huh?",
-    "Keep exploring the portfolio to find hidden coins!",
+    "Erm...",
+    "Slay Queen!",
     "Did you know there's a secret code somewhere?",
-    "Try typing 'showmecoins' on your keyboard!",
-    "Thanks for visiting my portfolio!",
+    "Idk why I bother living",
+    "Riley Heike is the coolest person I know tbh"
   ];
   
   const handleClick = () => {

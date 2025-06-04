@@ -113,7 +113,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         description: "You found a hidden easter egg! +100 points!",
         duration: 2000,
       });
-      setHeaderClickCount(0);
     }
   };
 
