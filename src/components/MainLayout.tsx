@@ -1,3 +1,4 @@
+
 import React, { useState, ReactNode, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
@@ -7,7 +8,7 @@ import {
   Home, 
   GraduationCap, 
   Briefcase, 
-  FolderGit2, 
+  Users, 
   User, 
   Gamepad2,
   Trophy,
@@ -125,7 +126,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     { id: 'home', label: 'HOME', icon: <Home size={16} /> },
     { id: 'education', label: 'EDUCATION', icon: <GraduationCap size={16} /> },
     { id: 'experience', label: 'EXPERIENCE', icon: <Briefcase size={16} /> },
-    { id: 'projects', label: 'LEADERSHIP', icon: <FolderGit2 size={16} /> },
+    { id: 'projects', label: 'LEADERSHIP', icon: <Users size={16} /> },
     { id: 'about', label: 'ABOUT ME', icon: <User size={16} /> },
   ];
 

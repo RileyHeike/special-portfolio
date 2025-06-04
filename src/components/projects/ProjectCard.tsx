@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { FolderGit2 } from 'lucide-react';
+import { Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Coin from '@/components/Coin';
 import { Project } from './ProjectTypes';
@@ -35,7 +35,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       )}
       
       <div className="h-32 bg-retro-dark-purple mb-4 flex items-center justify-center overflow-hidden rounded-lg">
-        <FolderGit2 size={48} className="text-retro-purple opacity-50" />
+        <Award size={48} className="text-retro-purple opacity-50" />
       </div>
       
       <h3 className="text-retro-terminal-green font-pixel text-lg mb-2">{project.title}</h3>

@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { FolderGit2 } from 'lucide-react';
+import { Award } from 'lucide-react';
 import Coin from '@/components/Coin';
 import { Project } from './ProjectTypes';
 import { 
@@ -37,7 +36,7 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({
       <DialogTitle className="text-retro-terminal-green font-pixel text-xl mb-4">{project.title}</DialogTitle>
       
       <div className="h-48 bg-retro-terminal-black mb-4 flex items-center justify-center overflow-hidden rounded-lg">
-        <FolderGit2 size={80} className="text-retro-purple opacity-50" />
+        <Award size={80} className="text-retro-purple opacity-50" />
       </div>
       
       {(project.organization || project.duration) && (
