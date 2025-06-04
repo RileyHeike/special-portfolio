@@ -8,14 +8,38 @@ import { Project } from './projects/ProjectTypes';
 interface ProjectsSectionContentProps {
   onCollectCoin?: (id: string, value: number) => void;
   coins?: Record<string, boolean>;
+  isSoundOn?: boolean;
 }
 
 const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({ 
   onCollectCoin,
-  coins = {}
+  coins = {},
+  isSoundOn = false
 }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   
+  const playModalSound = () => {
+    if (!isSoundOn) return;
+    
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    // Modal open sound
+    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.3);
+    
+    oscillator.type = 'sine';
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.4);
+  };
+
   const projects: Project[] = [
     {
       id: 1,
@@ -80,6 +104,7 @@ const ProjectsSectionContent: React.FC<ProjectsSectionContentProps> = ({
   ];
   
   const openProjectDetails = (project: Project) => {
+    playModalSound();
     setSelectedProject(project);
   };
 

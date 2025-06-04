@@ -139,11 +139,11 @@ const Index = () => {
       case 'home':
         return <HomeSectionContent onInteraction={() => {}} score={score} />;
       case 'education':
-        return <EducationSectionContent />;
+        return <EducationSectionContent isSoundOn={isSoundOn} />;
       case 'experience':
         return <ExperienceSectionContent />;
       case 'projects':
-        return <ProjectsSectionContent onCollectCoin={handleCollectCoin} coins={coins} />;
+        return <ProjectsSectionContent onCollectCoin={handleCollectCoin} coins={coins} isSoundOn={isSoundOn} />;
       case 'about':
         return <AboutSectionContent />;
       default:

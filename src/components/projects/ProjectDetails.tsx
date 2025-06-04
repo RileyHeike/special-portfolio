@@ -25,16 +25,14 @@ const ProjectDetails: React.FC<ProjectDetailsProps> = ({
 
   const content = (
     <>
-      {project.id === 3 && onCollectCoin && (
-        <div className="absolute top-2 right-12 opacity-0 hover:opacity-100 coin-hidden transition-opacity duration-300">
-          <Coin 
-            id={`project-modal-${project.id}-coin`} 
-            value={100} 
-            onCollect={onCollectCoin}
-            isCollected={coins[`project-modal-${project.id}-coin`] || false}
-          />
-        </div>
-      )}
+      <div className="absolute top-2 right-12 opacity-0 hover:opacity-100 coin-hidden transition-opacity duration-300">
+        <Coin 
+          id={`project-modal-${project.id}-coin`} 
+          value={75} 
+          onCollect={onCollectCoin || (() => {})}
+          isCollected={coins[`project-modal-${project.id}-coin`] || false}
+        />
+      </div>
       
       <DialogTitle className="text-retro-terminal-green font-pixel text-xl mb-4">{project.title}</DialogTitle>
       

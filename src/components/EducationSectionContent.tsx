@@ -8,7 +8,33 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
-const EducationSectionContent: React.FC = () => {
+interface EducationSectionContentProps {
+  isSoundOn?: boolean;
+}
+
+const EducationSectionContent: React.FC<EducationSectionContentProps> = ({ isSoundOn = false }) => {
+  const playExpandSound = () => {
+    if (!isSoundOn) return;
+    
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    // Expand sound
+    oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(900, audioContext.currentTime + 0.2);
+    
+    oscillator.type = 'triangle';
+    gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.3);
+  };
+
   const education = [
     {
       degree: "Finance and Computer Science",
@@ -74,7 +100,7 @@ const EducationSectionContent: React.FC = () => {
             
             <p className="text-retro-terminal-green font-mono mb-4">{edu.description}</p>
             
-            <Accordion type="single" collapsible className="border-0">
+            <Accordion type="single" collapsible className="border-0" onValueChange={(value) => value && playExpandSound()}>
               <AccordionItem value={`item-${index}`} className="border-0">
                 <AccordionTrigger className="py-0 hover:no-underline">
                   <div className="bg-retro-dark-purple text-retro-terminal-green px-3 py-1 rounded font-mono text-xs flex items-center">

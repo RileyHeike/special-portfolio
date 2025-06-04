@@ -40,11 +40,11 @@ const CharacterPanel: React.FC<CharacterPanelProps> = ({
     <div className="bg-retro-terminal-black p-6 border-2 border-retro-purple rounded-lg pixel-corners w-full h-full flex flex-col items-center justify-between hover:border-retro-pixel-yellow transition-colors duration-300">
       <h3 className="text-retro-pixel-yellow font-pixel text-lg">YOUR CHARACTER</h3>
       
-      {/* Class selection */}
+      {/* Class selection with added padding */}
       <div className="w-full px-4 mb-4">
         <div className="flex items-center justify-between mb-2">
           <h4 className="text-retro-terminal-green font-pixel text-sm">CHARACTER CLASS</h4>
-          <div className="text-retro-pixel-yellow font-pixel">{selectedClass.name}</div>
+          <div className="text-retro-pixel-yellow font-pixel py-2">{selectedClass.name}</div>
         </div>
         <div className="flex items-center justify-between">
           <button 
@@ -53,7 +53,7 @@ const CharacterPanel: React.FC<CharacterPanelProps> = ({
           >
             <ArrowLeft size={16} className="text-retro-terminal-green" />
           </button>
-          <div className="text-xs text-retro-terminal-green text-center px-4">
+          <div className="text-xs text-retro-terminal-green text-center px-4 py-2">
             {selectedClass.description}
           </div>
           <button 
