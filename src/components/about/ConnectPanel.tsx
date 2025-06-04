@@ -13,24 +13,26 @@ const ConnectPanel: React.FC = () => {
     },
     {
       name: "Instagram", 
-      url: "https://instagram.com/kristy.chereath",
+      url: "https://instagram.com/kc13577",
       icon: "instagram",
       color: "text-pink-400 hover:text-pink-300"
     },
     {
       name: "Spotify",
-      url: "https://open.spotify.com/user/kristychereath",
+      url: "https://open.spotify.com/user/o4zax9vw42tnfmkpspbx9zck8?si=1b938c9814d54242",
       icon: "spotify", 
       color: "text-green-400 hover:text-green-300"
     }
   ];
 
+
   const handleDownloadResume = () => {
-    // This would typically trigger a download of the resume file
-    console.log("Resume download triggered");
-    // For now, we'll just show an alert
-    alert("Resume download feature coming soon!");
+    const link = document.createElement("a");
+    link.href = "/resume.pdf"; // Assuming resume.pdf is in the /public folder
+    link.download = "Heike, Riley Resume.pdf"; // This is the filename for the download
+    link.click();
   };
+  
 
   return (
     <div className="bg-retro-terminal-black p-4 border-2 border-retro-purple rounded-lg pixel-corners">
@@ -64,8 +66,8 @@ const ConnectPanel: React.FC = () => {
                 className={`font-mono text-sm transition-colors ${link.color}`}
               >
                 {link.name === "LinkedIn" ? "kristy-chereath" : 
-                 link.name === "Instagram" ? "@kristy.chereath" :
-                 "kristychereath"}
+                 link.name === "Instagram" ? "@kc13577" :
+                 "kc1357"}
               </a>
             </div>
           </div>

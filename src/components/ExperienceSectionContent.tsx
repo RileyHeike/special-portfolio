@@ -29,19 +29,6 @@ const ExperienceSectionContent: React.FC = () => {
       ],
       technologies: []
     },
-    {
-      title: "Web Developer Intern",
-      company: "Startup Accelerator",
-      location: "Innovation District",
-      period: "2017 - 2018",
-      description: "Assisted in developing web applications for startups. Gained hands-on experience with modern web technologies.",
-      highlights: [
-        "Created responsive landing pages for 5 startups",
-        "Implemented analytics tracking",
-        "Designed and developed interactive UI components"
-      ],
-      technologies: ["HTML/CSS", "JavaScript", "Bootstrap", "jQuery", "PHP", "MySQL"]
-    }
   ];
 
   return (

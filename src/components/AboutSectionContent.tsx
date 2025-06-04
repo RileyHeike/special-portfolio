@@ -8,7 +8,7 @@ import { Interest } from './about/InterestItem';
 
 const AboutSectionContent: React.FC = () => {
   const personalInfo = {
-    bio: "Hi there! I'm glad you found your way to my portfolio. As a Finance/CS double-major, I am interested in data, the intersection between technology and the business world, and financial services. When I'm not coding, you can find me exploring the outdoors, reading a good book, or enjoying a cup of coffee. Feel free to reach out to me at kchereath@scu.edu or connect with me on LinkedIn at https://www.linkedin.com/in/kristy-chereath/",
+    bio: "Hi there! I'm glad you found your way to my portfolio. As a Finance/CS double-major, I am interested in data, the intersection between technology and the business world, and financial services. When I'm not coding, you can find me exploring the outdoors, reading a good book, or enjoying a cup of coffee. Feel free to reach out to me at kchereath@scu.edu or connect with me using the links below!",
     interests: [
       { 
         icon: <Mountain size={16} />, 
